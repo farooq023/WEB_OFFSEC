@@ -1,12 +1,13 @@
 
 const express = require('express');
 const router = express.Router();
-const allSsl = require("../models/AllSsl.js");
-const sslResults = require("../models/SslResult.js");
+
+const allOut = require("../models/AllOut.js")
+const outResults = require("../models/OutResult.js")
 
 router.get('/:email',
   async (req, res) => {
-    allSsl.aggregate([{ $match:{ Email: req.params.email } }]).
+    allOut.aggregate([{ $match:{ Email: req.params.email } }]).
     exec((err,results)=>{
         if(!results){
           res.send(res)
@@ -21,10 +22,10 @@ router.get('/:email',
   } 
 )
 
-router.get('/:email/:domain',
+router.get('/:email/:date/:time',
   async (req, res) => {
-    // console.log("fetch ssl results api called***********", req.session.mail);
-    sslResults.aggregate([{ $match:{ Email: req.params.email, Domain: req.params.domain } }]).
+    // console.log("fetch in results api called***********", req.session.mail);
+    outResults.aggregate([{ $match:{ Email: req.params.email, Date: req.params.date, Time: req.params.time, } }]).
     exec((err,results)=>{
         if(!results){
           res.send(res)

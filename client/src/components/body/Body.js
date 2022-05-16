@@ -24,20 +24,27 @@ import Payloads from "../../pages/WAF/Payloads";
 // import Spoof from "../../pages/WAF/Spoof";
 import Inbound from "../../pages/webGateway/Inbound";
 import Outbound from "../../pages/webGateway/Outbound";
+
+import InList from "../../pages/webGateway/InList";
+import InResult from "../../pages/webGateway/InResult";
+
+import OutList from "../../pages/webGateway/OutList";
+import OutResult from "../../pages/webGateway/OutResult";
+
 // import Completed from "./pages/Completed";
 import Agents from "../../pages/admin/Agents";
 import Getreport from "../../pages/Getreport";
 
 import AssessmentResults from "../../pages/webAssessment/AssessmentResults";
 import ScanList from "../../pages/webAssessment/ScanList";
-// import WGList from './pages/WGList';
 
 import ScanResults from "../../pages/webAssessment/ScanResults";
 import DnsList from "../../pages/WAF/DnsList";
+
 import DnsResults from "../../pages/WAF/DnsResults";
+import GenResults from "../../pages/WAF/GenResults";
 
 import GenList from "../../pages/WAF/GenList";
-// import GenResults from './pages/WAF/GenResults';
 
 import SslList from "../../pages/WAF/SslList";
 import SslResults from "../../pages/WAF/SslResults";
@@ -140,6 +147,11 @@ function Body() {
           exact
         />
         <Route
+          path="genresults"
+          element={isLogged ? <GenResults /> : <NotFound />}
+          exact
+        />
+        <Route
           path="genlist"
           element={isLogged ? <GenList /> : <NotFound />}
           exact
@@ -175,7 +187,7 @@ function Body() {
         {/* <Route
           path="spoof"
           element={isLogged ? <Spoof /> : <NotFound />}
-          exact
+          exact   
         /> */}
 
         <Route
@@ -188,6 +200,33 @@ function Body() {
           element={isLogged ? <Outbound /> : <NotFound />}
           exact
         />
+
+        
+
+        <Route
+          path="inlist"
+          element={isLogged ? <InList /> : <NotFound />}
+          exact
+        />
+
+        <Route
+          path="outlist"
+          element={isLogged ? <OutList /> : <NotFound />}
+          exact
+        />
+
+        <Route
+          path="inresult"
+          element={isLogged ? <InResult /> : <NotFound />}
+          exact
+        />
+
+        <Route
+          path="outresult"
+          element={isLogged ? <OutResult /> : <NotFound />}
+          exact
+        />
+
         <Route
           path="agents"
           element={isLogged ? <Agents /> : <NotFound />}

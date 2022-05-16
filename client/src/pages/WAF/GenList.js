@@ -48,16 +48,13 @@ const GenList = ({ auth: { user } }) => {
                   <tr>
                     <td>{obj.Domain}</td>
                     <td>
-                      <Link
-                        to={{
-                          pathname: "/genresults",
-                          email: obj.Email,
-                          domain: obj.Domain,
-                          date: obj.Date,
-                          time: obj.Time,
-                          dur: obj.Duration,
-                        }}
-                      >
+                      <Link to="/genresults" state={{
+                        email: user.email,
+                        domain: obj.Domain,
+                        date: obj.Date,
+                        time: obj.Time,
+                        dur: obj.Duration,
+                      }}>
                       <Button color='primary' size="sm" style={{borderRadius:"25px" }}>View Results</Button>
                     </Link>
                     </td>

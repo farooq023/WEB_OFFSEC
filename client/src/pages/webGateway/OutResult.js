@@ -2,48 +2,52 @@
 import React, { useEffect, useState } from "react";
 import { useLocation } from 'react-router-dom'
 import { Button, Table } from "reactstrap";
-import generatePDF from "../../pdfReporting/waf/dnsresultsPdf";
+
+// import generatePDF from "../../pdfReporting/waf/sslResultsPdf";
+
 import { Bar } from 'react-chartjs-2'
 
-const DnsResults = (props) => {
+const OutResult = (props) => {
 
   const location = useLocation();
   const { email } = location.state;
-  const { domain } = location.state;
   const { date } = location.state;
   const { time } = location.state;
   const { dur } = location.state;
 
-  let [found, setFound] = useState([]);
-  let [matching, setMatching] = useState([]);
+  let [trqs, setTrqs] = useState('');
+  let [okss, setOkss] = useState('');
+  let [gateStatus, setGateStatus] = useState('');
 
-  let user = [email, domain, date, time, dur];
+
+//   let user = [email, date, time, dur];
 
   useEffect(() => {
-    fetch("/api/fetchdns/"+email+'/'+domain, {
+    fetch("/api/fetchout/"+email+'/'+date+'/'+time, {
       method: "GET",
     }).then(function (response) {
       response.json().then((res) => {
-        if (res.length > 0) {
+        // if (res.length > 0) {
           // console.log(res);
-          setFound(res[0].DnsIpRecords);
-          setMatching(res[0].MatchingResponses);
-        }
+          setTrqs(res[0].trequests);
+          setOkss(res[0].oks);
+          setGateStatus(res[0].gateStatus);
+        // }
       });
     });
   });
 
-  let dnsResults = [found, matching];
+//   let inResults = [supported, bypassing];
 
   return (
     <div style={{height:"100vh", width:"100%", backgroundColor:"#F0F2F5", display:"flex", flexDirection:"column", alignItems:"center"}}>
-      <h1 style={{marginTop:"6%", color:"#17a2b8"}}><b>Abused DNS History of {domain}</b></h1>
+      <h1 style={{marginTop:"6%", color:"#17a2b8"}}><b>Inbound Assessment Result</b></h1>
 
       <div style={{ width:"80vw", marginTop:"2%", display:"flex", justifyContent:"space-around"}}>
         <div style={{display: "flex", flexDirection: "column", border:"5px solid #17a2b8", borderRadius:"25px", padding:"1.5%", height:"32vh", width:"28vw"}}>
           <h2>Assessment Details: </h2>
           <h4 style={{ marginTop: "6%" }}>
-            <u>Assessment Type</u>: Abuse DNS History (WAF)
+            <u>Assessment Type</u>: Assess Outbound Traffic (WG)
           </h4>
           <h4>
             <u>Date</u>: {date}
@@ -56,16 +60,17 @@ const DnsResults = (props) => {
           </h4>
         </div>
 
-        <Button className="btn btn-primary" style={{borderRadius:"25px", height:"9vh", width:"8vw"}} onClick={() => generatePDF(dnsResults, user)}>Get report</Button>
+        {/* <Button className="btn btn-primary" style={{borderRadius:"25px", height:"9vh", width:"8vw"}} onClick={() => generatePDF(sslResults, user)}>Get report</Button> */}
+        <Button className="btn btn-primary" style={{borderRadius:"25px", height:"9vh", width:"8vw"}}>Get report</Button>
         
         <div style={{border:"5px solid #17a2b8", borderRadius:"25px", padding:"1.5%", height:"41vh", width:"32vw"}}>
           <Bar
             data={{
-              labels: ['DNS IP Records', 'Matching Responses'],
+              labels: ['Total Requests', 'Successful Requests'],
               datasets: [
                 {
                   label: ['Visual Representation:'],
-                  data: [found[0] == '-' ? 0 : found.length , matching[0] == '-' ? 0 : matching.length],
+                  data: [parseInt(trqs), parseInt(okss)],
                   backgroundColor: ["green", "red"],
                   borderColor: [
                     'rgba(255, 99, 132, 1)',
@@ -108,52 +113,50 @@ const DnsResults = (props) => {
         </div>
       </div>
       
-      <div style={{display:"flex", flexDirection:"row", marginTop:"1%"}} >
-        <div className="scrollbar scrollbar-primary  mt-5 mx-auto" style={{ height:"35vh", width:"40vw", border:"5px solid #17a2b8" }}>
-          <Table style={{width:"39vw"}}>
-            <thead>
-              <tr>
-                <th scope="col">DNS History ({found[0] == '-' ? 0 : found.length})</th>
-              </tr>
-            </thead>
-            <tbody>
-              {found ? (
-                found.map((ip) => (
-                  <tr>
-                    <td>{ip}</td>
-                  </tr>
-                ))
-              ) : (
-                <td></td>
-              )}
-            </tbody>
-          </Table>
-        </div>
-        <div className="scrollbar scrollbar-primary  mt-5 mx-auto" style={{ height:"35vh", width:"40vw", border:"5px solid #17a2b8" }}>
-          <Table style={{width:"39vw"}}>
-            <thead>
-              <tr>
-                <th scope="col">Matching Responses ({matching[0] == '-' ? 0 : matching.length})</th>
-              </tr>
-            </thead>
-
-            <tbody>
-              {matching ? (
-                matching.map((ip) => (
-                  <tr>
-                    <td>{ip}</td>
-                  </tr>
-                ))
-              ) : (
-                <td></td>
-              )}
-            </tbody>
-          </Table>
-        </div>
-      </div>
+      {/* <div style={{ width:"25vw", border:"5px solid #17a2b8", borderRadius:"10px", marginTop:"2%", padding:"1.5%" }}>
+        <h2>Assessment Results: </h2>
+        <h4 style={{ marginTop: "6%" }}>
+            <u>Files Imported in Test #1</u>: {test1}
+        </h4>
+        <h4>
+            <u>Files Imported in Test #2</u>: {test2}
+        </h4>
+        <h4>
+            <u>Files Imported in Test #3</u>: {test3}
+        </h4>
+        <h4>
+            <u>Gateway Score</u>: {gateScore}
+        </h4>
+        <h4>
+            <u>Gateway Status</u>: {gateStatus}
+        </h4>
+      </div> */}
       
+      <div style={{width:"100%"}}>
+      <div style={{ width:"30vw", border:"5px solid #17a2b8", borderRadius:"10px", padding:"1.5%", marginLeft:"12vw" }}>
+        <h2>Assessment Result: </h2>
+          <div style={{display:"flex", flexDirection:"row"}}>
+              <Table>
+                  <thead>
+                      <tr>Total Malicious Requests Made :</tr>
+                      <tr>Successful Requests :</tr>
+                      <tr>Gateway Score :</tr>
+                      <tr>Gateway Status :</tr>
+                  </thead>
+            </Table>
+            <Table>
+                  <thead>
+                      <tr>{trqs}</tr>
+                      <tr>{okss}</tr>
+                      <tr>{Math.trunc(100-(okss/trqs*100))}%</tr>
+                      <tr>{gateStatus}</tr>
+                  </thead>
+            </Table>
+          </div>    
+        </div>
+      </div>  
     </div>
   );
 };
 
-export default DnsResults;
+export default OutResult;

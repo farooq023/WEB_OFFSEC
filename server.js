@@ -35,6 +35,12 @@ app.use("/api/fetchssl", require("./routes/fetchssl"));
 app.use("/api/sendgen", require("./routes/sendgen"));
 app.use("/api/fetchgen", require("./routes/fetchgen"));
 
+
+app.use("/api/fetchin", require("./routes/fetchin"));
+
+
+app.use("/api/fetchout", require("./routes/fetchout"));
+
 app.use("/api/fetchallassessment", require("./routes/fetchallassessment"));
 
 // Connect to mongodb

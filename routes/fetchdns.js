@@ -23,26 +23,9 @@ router.get('/:email',
   } 
 )
 
-router.get('/test',
-  async (req, res) => {
-    allDn.find.
-    exec((err,results)=>{
-        if(!results){
-          res.send(res)
-          return "Not found"
-        }
-        else if(err){
-          res.send(err)
-          return "Not found"
-        }
-        res.send(results);
-    })
-  } 
-)
-
 router.get('/:email/:domain',
   async (req, res) => {
-    console.log("fetch dns results api called***********", req.session.mail);
+    // console.log("fetch dns results api called***********", req.session.mail);
     dnsResults.aggregate([{ $match:{ Email: req.params.email, Domain: req.params.domain } }]).
     exec((err,results)=>{
         if(!results){

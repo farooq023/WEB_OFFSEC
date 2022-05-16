@@ -5,7 +5,7 @@ import { Button, Table } from "reactstrap";
 import generatePDF from "../../pdfReporting/waf/dnsresultsPdf";
 import { Bar } from 'react-chartjs-2'
 
-const DnsResults = (props) => {
+const GenResults = (props) => {
 
   const location = useLocation();
   const { email } = location.state;
@@ -14,36 +14,41 @@ const DnsResults = (props) => {
   const { time } = location.state;
   const { dur } = location.state;
 
-  let [found, setFound] = useState([]);
-  let [matching, setMatching] = useState([]);
+  let [xssVulns, setXssVulns] = useState([]);
+  let [xssReqs, setXssReqs] = useState(0);
+  
+  let [sqlVulns, setSqlVulns] = useState([]);
+  let [sqlReqs, setSqlReqs] = useState(0);
 
   let user = [email, domain, date, time, dur];
 
   useEffect(() => {
-    fetch("/api/fetchdns/"+email+'/'+domain, {
+    fetch("/api/fetchgen/"+email+'/'+domain, {
       method: "GET",
     }).then(function (response) {
       response.json().then((res) => {
         if (res.length > 0) {
           // console.log(res);
-          setFound(res[0].DnsIpRecords);
-          setMatching(res[0].MatchingResponses);
+          setXssVulns(res[0].XssVulns);
+          setXssReqs(res[0].Xreqs);
+          setSqlVulns(res[0].SqlVulns);
+          setSqlReqs(res[0].Sreqs);
         }
       });
     });
   });
 
-  let dnsResults = [found, matching];
+//   let dnsResults = [found, matching];
 
   return (
     <div style={{height:"100vh", width:"100%", backgroundColor:"#F0F2F5", display:"flex", flexDirection:"column", alignItems:"center"}}>
-      <h1 style={{marginTop:"6%", color:"#17a2b8"}}><b>Abused DNS History of {domain}</b></h1>
+      <h1 style={{marginTop:"6%", color:"#17a2b8"}}><b>Generated Payloads on {domain}</b></h1>
 
       <div style={{ width:"80vw", marginTop:"2%", display:"flex", justifyContent:"space-around"}}>
         <div style={{display: "flex", flexDirection: "column", border:"5px solid #17a2b8", borderRadius:"25px", padding:"1.5%", height:"32vh", width:"28vw"}}>
           <h2>Assessment Details: </h2>
           <h4 style={{ marginTop: "6%" }}>
-            <u>Assessment Type</u>: Abuse DNS History (WAF)
+            <u>Assessment Type</u>: Generate Payloads (WAF)
           </h4>
           <h4>
             <u>Date</u>: {date}
@@ -56,19 +61,22 @@ const DnsResults = (props) => {
           </h4>
         </div>
 
-        <Button className="btn btn-primary" style={{borderRadius:"25px", height:"9vh", width:"8vw"}} onClick={() => generatePDF(dnsResults, user)}>Get report</Button>
+        {/* <Button className="btn btn-primary" style={{borderRadius:"25px", height:"9vh", width:"8vw"}} onClick={() => generatePDF(dnsResults, user)}>Get report</Button> */}
+        <Button className="btn btn-primary" style={{borderRadius:"25px", height:"9vh", width:"8vw"}}>Get report</Button>
         
         <div style={{border:"5px solid #17a2b8", borderRadius:"25px", padding:"1.5%", height:"41vh", width:"32vw"}}>
           <Bar
             data={{
-              labels: ['DNS IP Records', 'Matching Responses'],
+              labels: ['XssReqs', 'XssVulns', 'SqlReqs', 'SqlVulns'],
               datasets: [
                 {
                   label: ['Visual Representation:'],
-                  data: [found[0] == '-' ? 0 : found.length , matching[0] == '-' ? 0 : matching.length],
-                  backgroundColor: ["green", "red"],
+                  data: [xssReqs, xssVulns[0] == '-' ? 0 : xssVulns.length, sqlReqs, sqlVulns[0] == '-' ? 0 : sqlVulns.length],
+                  backgroundColor: ["green", "red", "green", "red"],
                   borderColor: [
                     'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(54, 162, 235, 1)',
                     'rgba(54, 162, 235, 1)'
                   ],
                   borderWidth: 1,
@@ -113,12 +121,12 @@ const DnsResults = (props) => {
           <Table style={{width:"39vw"}}>
             <thead>
               <tr>
-                <th scope="col">DNS History ({found[0] == '-' ? 0 : found.length})</th>
+                <th scope="col">Xss Vulns ({xssVulns[0] == '-' ? 0 : xssVulns.length}/{xssReqs})</th>
               </tr>
             </thead>
             <tbody>
-              {found ? (
-                found.map((ip) => (
+              {xssVulns ? (
+                xssVulns.map((ip) => (
                   <tr>
                     <td>{ip}</td>
                   </tr>
@@ -133,13 +141,13 @@ const DnsResults = (props) => {
           <Table style={{width:"39vw"}}>
             <thead>
               <tr>
-                <th scope="col">Matching Responses ({matching[0] == '-' ? 0 : matching.length})</th>
+                <th scope="col">Sql Vulns ({sqlVulns[0] == '-' ? 0 : sqlVulns.length}/{sqlReqs})</th>
               </tr>
             </thead>
 
             <tbody>
-              {matching ? (
-                matching.map((ip) => (
+              {sqlVulns ? (
+                sqlVulns.map((ip) => (
                   <tr>
                     <td>{ip}</td>
                   </tr>
@@ -156,4 +164,4 @@ const DnsResults = (props) => {
   );
 };
 
-export default DnsResults;
+export default GenResults;
