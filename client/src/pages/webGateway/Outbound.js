@@ -4,11 +4,11 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Button, Label, Alert } from "reactstrap";
 
-
-// import { setAlert } from '../../actions/alert';    
+import { setAlert } from "../../redux/actions/alert";
 
 
 const Outbound = ({ setAlert, auth: { user } }) => {
+
 
   const onSubmit = (e) => {
 
@@ -20,10 +20,10 @@ const Outbound = ({ setAlert, auth: { user } }) => {
       response.json().then((res)=>{
         console.log(res.result);
         if (res.result === 'ok') {
-          // setAlert('Assessment Initiated Successfully', 'success');
+          setAlert('Assessment Initiated Successfully', 'success');
         }
         else{
-          // setAlert('Server Error', 'danger');
+          setAlert('Server Error', 'danger');
         }
       })
     })
@@ -72,6 +72,7 @@ const Outbound = ({ setAlert, auth: { user } }) => {
             onChange={ (e) => setDomain(e.target.value) }
           />
         </form> */}
+        {/* <Button color="primary" onClick={ () => {onSubmit()}} style={{backgroundColor:"#17a2b8",  borderRadius:"25px", borderColor:"#17a2b8", marginTop:"5vh"}}>Initiate Assessment</Button> */}
         <Button color="primary" onClick={onSubmit} style={{backgroundColor:"#17a2b8",  borderRadius:"25px", borderColor:"#17a2b8", marginTop:"5vh"}}>Initiate Assessment</Button>
       </div>
 
@@ -88,9 +89,4 @@ const mapStateToProps = (state) => ({
   auth: state.auth
 });
 
-// export default connect(mapStateToProps,{ setAlert})(Scan);
-export default connect(mapStateToProps)(Outbound);
-
-
-
-// export default Scan;
+export default connect(mapStateToProps, {setAlert})(Outbound);

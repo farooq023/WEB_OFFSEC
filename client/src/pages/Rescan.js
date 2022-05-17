@@ -5,7 +5,10 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Table, Button } from 'reactstrap';
 
-const Rescan = ({ auth: { user } }) => {
+import { setAlert } from "../redux/actions/alert";
+
+
+const Rescan = ({ setAlert, auth: { user } }) => {
 
   let [scanList, setScanList] = useState([]);
 
@@ -25,18 +28,20 @@ const Rescan = ({ auth: { user } }) => {
   });
 
   function rescan(dom){
-    // console.log(dom);
+    console.log(dom);
     fetch("/api/sendscan/"+user.email+'/'+dom, {
       method: "POST",
     })
     .then(function (response) {
       response.json().then((res)=>{
-        // console.log(res);
+        console.log(res);
         if (res.result === 'ok') {
-          // setAlert('Scan Initiated Successfully', 'success');
+          // console.log('Scan Initiated Successfully.');
+          setAlert('Scan Initiated Successfully', 'success');
         }
         else{
-          // setAlert('Server Error', 'danger');
+          // console.log('Server Error.');
+          setAlert('Server Error', 'danger');
         }
       })
     });
@@ -80,11 +85,12 @@ const Rescan = ({ auth: { user } }) => {
 
 
 Rescan.propTypes = {
-  auth: PropTypes.object.isRequired
+  auth: PropTypes.object.isRequired,
+  setAlert: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   auth: state.auth
 });
 
-export default connect(mapStateToProps)(Rescan);
+export default connect(mapStateToProps, {setAlert})(Rescan);

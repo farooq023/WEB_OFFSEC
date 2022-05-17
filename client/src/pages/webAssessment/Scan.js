@@ -30,12 +30,8 @@ const Scan = ({ setAlert, auth: { user } }) => {
       })
       .then(function (response) {
         response.json().then((res)=>{
-          // console.log(res.result);        
-          if (res.result === 'dead') {
-            // console.log('Domain not alive.');
-            setAlert('Domain not alive.', 'danger');
-          }
-          else if (res.result === 'ok') {
+          console.log(res.result);        
+          if (res.result === 'ok') {
             // console.log('Scan Initiated Successfully.');
             setAlert('Scan Initiated Successfully.', 'success');
           }
@@ -119,7 +115,7 @@ const mapStateToProps = (state) => ({
   auth: state.auth
 });
 
-export default connect(mapStateToProps,{ setAlert})(Scan);
+export default connect(mapStateToProps, {setAlert})(Scan);
 // export default connect(mapStateToProps)(Scan);
 
 
