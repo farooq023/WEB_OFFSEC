@@ -3,10 +3,7 @@ import { Link, Navigate } from "react-router-dom";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import axios from "axios";
-import {
-  showErrMsg,
-  showSuccessMsg,
-} from "../../utils/notification/Notification";
+import { setAlert } from "../../../redux/actions/alert";
 import {
   isEmpty,
   isEmail,
@@ -19,53 +16,61 @@ const initialState = {
   email: "",
   password: "",
   password2: "",
-  err: "",
-  success: "",
 };
 
-function Register({ isLogged }) {
+function Register({ setAlert, isLogged }) {
   const [user, setUser] = useState(initialState);
 
-  const { name, email, password, password2, err, success } = user;
+  const { name, email, password, password2 } = user;
 
   const handleChangeInput = (e) => {
     const { name, value } = e.target;
-    setUser({ ...user, [name]: value, err: "", success: "" });
+    setUser({ ...user, [name]: value });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (isEmpty(name) || isEmpty(password))
+    if (
+      isEmpty(name) ||
+      isEmpty(password) ||
+      isEmpty(password2) ||
+      isEmpty(email)
+    ) {
+      setAlert("Please fill in all fields.", "danger");
+
       return setUser({
         ...user,
-        err: "Please fill in all fields.",
-        success: "",
       });
+    }
+    if (!isEmail(email)) {
+      setAlert("Invalid email.", "danger");
 
-    if (!isEmail(email))
-      return setUser({ ...user, err: "Invalid emails.", success: "" });
+      return setUser({ ...user });
+    }
+    if (isLength(password)) {
+      setAlert("Password must be at least 6 characters.", "danger");
 
-    if (isLength(password))
       return setUser({
         ...user,
-        err: "Password must be at least 6 characters.",
-        success: "",
       });
+    }
+    if (!isMatch(password, password2)) {
+      setAlert("Passwords do not match", "danger");
 
-    if (!isMatch(password, password2))
       return setUser({ ...user, err: "Password did not match.", success: "" });
-
+    }
     try {
       const res = await axios.post("/user/register", {
         name,
         email,
         password,
       });
+      setAlert(res.data.msg, "success");
 
-      setUser({ ...user, err: "", success: res.data.msg });
+      setUser({ ...user });
     } catch (err) {
-      err.response.data.msg &&
-        setUser({ ...user, err: err.response.data.msg, success: "" });
+      err.response.data.msg && setAlert(err.response.data.msg, "danger");
+      setUser({ ...user });
     }
   };
 
@@ -142,8 +147,6 @@ function Register({ isLogged }) {
           {/* <text style={{fontSize:'125%', marginLeft:"2%"}}>Become An Agent Now!</text> */}
           {/* </div> */}
         </h2>
-        {err && showErrMsg(err)}
-        {success && showSuccessMsg(success)}
         <form
           style={{
             display: "flex",
@@ -237,6 +240,7 @@ function Register({ isLogged }) {
 }
 
 Register.propTypes = {
+  setAlert: PropTypes.func.isRequired,
   isLogged: PropTypes.bool,
 };
 
@@ -244,4 +248,4 @@ const mapStateToProps = (state) => ({
   isLogged: state.auth.isAuthenticated,
 });
 
-export default connect(mapStateToProps)(Register);
+export default connect(mapStateToProps, { setAlert })(Register);

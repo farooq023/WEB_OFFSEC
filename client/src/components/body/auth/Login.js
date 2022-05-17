@@ -1,38 +1,46 @@
 import React, { useState } from "react";
 import { Link, Navigate } from "react-router-dom";
 import axios from "axios";
-import {
-  showErrMsg,
-  showSuccessMsg,
-} from "../../utils/notification/Notification";
+import { setAlert } from "../../../redux/actions/alert";
 import { dispatchLogin } from "../../../redux/actions/authAction";
 import { useDispatch, connect } from "react-redux";
 import PropTypes from "prop-types";
-
+import { isEmpty, isEmail } from "../../utils/validation/Validation";
 const initialState = {
   email: "",
   password: "",
-  err: "",
-  success: "",
 };
 
-function Login({ auth: { isLogged, isAdmin } }) {
+function Login({ setAlert, auth: { isLogged, isAdmin } }) {
   const [user, setUser] = useState(initialState);
   const dispatch = useDispatch();
   // const navigate = useNavigate();
 
-  const { email, password, err, success } = user;
+  const { email, password } = user;
 
   const handleChangeInput = (e) => {
     const { name, value } = e.target;
-    setUser({ ...user, [name]: value, err: "", success: "" });
+    setUser({ ...user, [name]: value });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (isEmpty(email) || isEmpty(password)) {
+      setAlert("Please fill in all fields.", "danger");
+
+      return setUser({
+        ...user,
+      });
+    }
+    if (!isEmail(email)) {
+      setAlert("Invalid email.", "danger");
+
+      return setUser({ ...user });
+    }
     try {
       const res = await axios.post("/user/login", { email, password });
-      setUser({ ...user, err: "", success: res.data.msg });
+      setAlert(res.data.msg, "success");
+      setUser({ ...user });
 
       localStorage.setItem("firstLogin", true);
 
@@ -40,8 +48,8 @@ function Login({ auth: { isLogged, isAdmin } }) {
       // navigate("/dashboard");
       // return <Navigate to="/dashboard" />
     } catch (err) {
-      err?.response?.data?.msg &&
-        setUser({ ...user, err: err?.response?.data?.msg, success: "" });
+      err?.response?.data?.msg && setAlert(err?.response?.data?.msg, "danger");
+      setUser({ ...user });
     }
   };
   if (isLogged === true) {
@@ -123,8 +131,6 @@ function Login({ auth: { isLogged, isAdmin } }) {
           {/* <text style={{fontSize:'125%', marginLeft:"2%"}}>Become An Agent Now!</text> */}
           {/* </div> */}
         </h2>
-        {err && showErrMsg(err)}
-        {success && showSuccessMsg(success)}
         <form
           style={{
             display: "flex",
@@ -193,6 +199,7 @@ function Login({ auth: { isLogged, isAdmin } }) {
 
 // export default Login;
 Login.propTypes = {
+  setAlert: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
 };
 
@@ -200,4 +207,4 @@ const mapStateToProps = (state) => ({
   auth: state.auth,
 });
 
-export default connect(mapStateToProps)(Login);
+export default connect(mapStateToProps, { setAlert })(Login);

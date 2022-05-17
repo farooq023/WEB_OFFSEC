@@ -7,6 +7,8 @@ import {
   dispatchGetUser,
 } from "./redux/actions/authAction";
 
+import Alert from "./components/utils/layout/Alert";
+
 import Header from "./components/header/Header";
 import Body from "./components/body/Body";
 import axios from "axios";
@@ -42,6 +44,7 @@ function App() {
 
   return (
     <Router>
+      <Alert />
       <div className="App">
         <Header />
         <Body />
