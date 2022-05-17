@@ -1,3 +1,4 @@
+
 import { connect } from 'react-redux';
 import React from 'react';
 import { agents } from '../../redux/actions/agents.js';
@@ -6,10 +7,12 @@ import { Navigate } from 'react-router-dom';
 import axios from 'axios';
 
 const Agents = ({ agentsData, results, agents, isAgents }) => {
+
   const onRemove = (email) => {
     axios.delete('/api/agents/' + email);
     getagents();
   };
+
   const getagents = async () => {
     await agents();
     if (isAgents) {
@@ -63,26 +66,6 @@ const Agents = ({ agentsData, results, agents, isAgents }) => {
       </div>
 
       <div>
-        {/* <Widget style={{innerWidth:50}}>
-        <table class="table"><thead>
-        <tr>
-            <th scope="col">Vulnerability</th>
-            <th scope="col">Severity</th>
-            <th scope="col">Url</th>
-        </tr>
-
-          </thead>
-
-          <tbody>
-              {results.map((obj)=>(<tr>
-                <td>{obj.Vulnerability}</td>
-                <td>{obj.Severity}</td>
-                <td>{obj.URL}</td>
-                </tr>))}
-          </tbody>
-          
-          </table>
-        </Widget> */}
       </div>
     </div>
   );

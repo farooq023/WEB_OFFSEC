@@ -3,9 +3,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Button, Label, Alert } from "reactstrap";
-
-
-// import { setAlert } from '../../actions/alert';    
+import { setAlert } from "../../redux/actions/alert";
 
 
 const Payloads = ({ setAlert, auth: { user } }) => {
@@ -17,8 +15,8 @@ const Payloads = ({ setAlert, auth: { user } }) => {
     e.preventDefault();
     var filter = /^([a-z0-9]+(-[a-z0-9]+)*\.)+[a-z]{2,}$/;
     if (!filter.test(domain)){
-      console.log('Invalid domain entry.');
-      // setAlert('Invalid domain entry.', 'danger');
+      // console.log('Invalid domain entry.');
+      setAlert('Invalid domain entry.', 'danger');
     }
     else{
 
@@ -28,15 +26,14 @@ const Payloads = ({ setAlert, auth: { user } }) => {
       .then(function (response) {
         response.json().then((res)=>{
           console.log(res.result);        
-          if (res.result === 'dead') {
-            
-            // setAlert('Domain not alive.', 'danger');
+          if (res.result === 'dead') {            
+            setAlert('Domain not alive.', 'danger');
           }
           else if (res.result === 'ok') {
-            // setAlert('Scan Initiated Successfully', 'success');
+            setAlert('Scan Initiated Successfully', 'success');
           }
           else{
-            // setAlert('Server Error', 'danger');
+            setAlert('Server Error', 'danger');
           }
         })
       });
@@ -84,9 +81,6 @@ const mapStateToProps = (state) => ({
   auth: state.auth
 });
 
-// export default connect(mapStateToProps,{ setAlert})(Scan);
-export default connect(mapStateToProps)(Payloads);
-
-
+export default connect(mapStateToProps,{ setAlert})(Payloads);
 
 // export default Scan;

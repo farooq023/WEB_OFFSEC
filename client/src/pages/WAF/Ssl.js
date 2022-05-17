@@ -4,9 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Button, Label, Alert } from "reactstrap";
 
-
-// import { setAlert } from '../../actions/alert';
-
+import { setAlert } from "../../redux/actions/alert";
 
 const Ssl = ({ setAlert, auth: { user } }) => {
 
@@ -17,7 +15,7 @@ const Ssl = ({ setAlert, auth: { user } }) => {
     e.preventDefault();
     var filter = /^([a-z0-9]+(-[a-z0-9]+)*\.)+[a-z]{2,}$/;
     if (!filter.test(domain)){
-        // setAlert('Invalid domain entry.', 'danger');
+        setAlert('Invalid domain entry.', 'danger');
     }
     else{
 
@@ -28,13 +26,13 @@ const Ssl = ({ setAlert, auth: { user } }) => {
         response.json().then((res)=>{
           console.log(res.result);        
           if (res.result === 'dead') {
-            // setAlert('Domain not alive.', 'danger');
+            setAlert('Domain not alive.', 'danger');
           }
           else if (res.result === 'ok') {
-            // setAlert('Scan Initiated Successfully', 'success');
+            setAlert('Scan Initiated Successfully', 'success');
           }
           else{
-            // setAlert('Server Error', 'danger');
+            setAlert('Server Error', 'danger');
           }
         })
       })
@@ -112,8 +110,8 @@ const mapStateToProps = (state) => ({
   auth: state.auth
 });
 
-// export default connect(mapStateToProps,{ setAlert})(Scan);
-export default connect(mapStateToProps)(Ssl);
+export default connect(mapStateToProps,{ setAlert})(Ssl);
+// export default connect(mapStateToProps)(Ssl);
 
 
 

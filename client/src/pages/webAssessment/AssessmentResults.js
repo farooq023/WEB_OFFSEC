@@ -1,11 +1,8 @@
 
 import React from "react";
 
-import {
-  Button
-} from "reactstrap";
+import { Button } from "reactstrap";
 
-// import { Dropdown } from 'bootstrap'
 
 import web from '../../assets/web.png';
 import fire from '../../assets/firewall.png';
@@ -27,7 +24,7 @@ const AssessmentResults = () => {
             <img src={fire} height="120vh" width="100vw" alt='' />
             <li  class="dropdown">
               {/* <b style={{borderRadius:"25px", marginTop:"8vh", backgroundColor:"#17a2b8", color:"white", padding:"1%"}}>WAF Assessments</b> */}
-              <Button href="/scanlist" color='primary' size="sm" style={{borderRadius:"25px", marginTop:"8vh"}}>WAF Assessments</Button>
+              <Button color='primary' size="sm" style={{borderRadius:"25px", marginTop:"8vh"}}>WAF Assessments</Button>
 
               <li class="dropdown-content">
                 <li>
@@ -42,9 +39,19 @@ const AssessmentResults = () => {
               </li>
             </li>
           </div>
-          <div>
+          <div style={{display:"flex", alignItems:"center", flexDirection:"column"}}>
             <img src={gate} height="120vh" width="100vw" alt='' />
-          
+            <li  class="dropdown">
+              <Button color='primary' size="sm" style={{borderRadius:"25px", marginTop:"8vh"}}>WG Assessments</Button>
+              <li class="dropdown-content">
+                <li>
+                  <a href="inlist">Inbound Traffic</a>
+                </li>
+                <li>
+                  <a href="outlist">Outbound Traffic</a>
+                </li>
+              </li>
+            </li>
           </div>
         </div>
         

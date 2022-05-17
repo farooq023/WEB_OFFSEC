@@ -1,3 +1,4 @@
+
 const express = require("express");
 const router = express.Router();
 const agent = require("../models/userModel.js");
@@ -17,6 +18,7 @@ router.get("/", async (req, res) => {
       res.send(agents);
     });
 });
+
 router.delete("/:email", (req, res) => {
   agent
     .findOne({})
@@ -38,4 +40,5 @@ router.delete("/:email", (req, res) => {
       });
     });
 });
+
 module.exports = router;

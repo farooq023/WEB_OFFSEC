@@ -2,10 +2,13 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Button, Label, Alert } from "reactstrap";
+import { Button, Label } from "reactstrap";
 
 
-// import { setAlert } from '../../actions/alert'; Dns
+// import { setAlert } from '../../actions/alert';
+
+import { setAlert } from "../../redux/actions/alert";
+
 
 
 const Scan = ({ setAlert, auth: { user } }) => {
@@ -17,8 +20,8 @@ const Scan = ({ setAlert, auth: { user } }) => {
     e.preventDefault();
     var filter = /^([a-z0-9]+(-[a-z0-9]+)*\.)+[a-z]{2,}$/;
     if (!filter.test(domain)){
-        // setAlert('Invalid domain entry.', 'danger');
-        console.log('Invalid domain entry.');
+      setAlert('Invalid domain entry.', 'danger');
+        // console.log('Invalid domain entry.');
     }
     else{
 
@@ -29,16 +32,16 @@ const Scan = ({ setAlert, auth: { user } }) => {
         response.json().then((res)=>{
           // console.log(res.result);        
           if (res.result === 'dead') {
-            console.log('Domain not alive.');
-            // setAlert('Domain not alive.', 'danger');
+            // console.log('Domain not alive.');
+            setAlert('Domain not alive.', 'danger');
           }
           else if (res.result === 'ok') {
-            console.log('Scan Initiated Successfully.');
-            // setAlert('Scan Initiated Successfully.', 'success');
+            // console.log('Scan Initiated Successfully.');
+            setAlert('Scan Initiated Successfully.', 'success');
           }
           else{
-            console.log('Server Error.');
-            // setAlert('Server Error.', 'danger');
+            // console.log('Server Error.');
+            setAlert('Server Error.', 'danger');
           }
         })
       });
@@ -116,8 +119,8 @@ const mapStateToProps = (state) => ({
   auth: state.auth
 });
 
-// export default connect(mapStateToProps,{ setAlert})(Scan);
-export default connect(mapStateToProps)(Scan);
+export default connect(mapStateToProps,{ setAlert})(Scan);
+// export default connect(mapStateToProps)(Scan);
 
 
 
