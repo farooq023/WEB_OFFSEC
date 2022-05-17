@@ -1,12 +1,11 @@
+
 const express = require('express');
 const router = express.Router();
 const request = require('request');
 const { check, validationResult } = require('express-validator');
 
 
-// router.post('/:email/:domain', async (req, res) => {
 router.post('/:email/:domain', async (req, res) => {
-
     
     // console.log("api called");
 
@@ -23,7 +22,8 @@ router.post('/:email/:domain', async (req, res) => {
 
       request('http://'+req.params.domain, function (error, response, body) {
         try{
-          if(response.statusCode == 200){
+          console.log(response.statusCode);
+          if(response.statusCode == 200 || response.statusCode == 401 || response.statusCode == 403){
             r=1;
           }
         }
@@ -59,7 +59,7 @@ router.post('/:email/:domain', async (req, res) => {
           res.send( {result:'dead'} );
         }
 
-      }, 1500 );
+      }, 2500 );
 
 
       // setTimeout(

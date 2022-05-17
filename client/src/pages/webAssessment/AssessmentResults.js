@@ -1,13 +1,9 @@
 
 import React from "react";
 
-// import {
-//   UncontrolledDropdown,
-//   DropdownToggle,
-//   DropdownMenu,
-//   DropdownItem,
-//   Button
-// } from "reactstrap";
+import {
+  Button
+} from "reactstrap";
 
 // import { Dropdown } from 'bootstrap'
 
@@ -24,12 +20,27 @@ const AssessmentResults = () => {
         <h1 style={{marginTop:"7%", color:"#17a2b8"}}>Choose Assessment Type</h1>
         <div style={{marginTop:"4%", border:"5px solid #17a2b8", height:"40vh", width:"50vw", borderRadius:"25px", display:"flex", justifyContent:"space-around", padding:"30px"}}>
           <div style={{display:"flex", flexDirection:"column", alignItems:"center"}}>
-            <img src={web} height="120vh" width="100vw" alt='' />
-            
+            <img  src={web} height="120vh" width="100vw" alt='' />
+            <Button href="/scanlist" color='primary' size="sm" style={{borderRadius:"25px", marginTop:"8vh"}}>Web Assessments</Button>
           </div>
-          <div>
+          <div style={{display:"flex", alignItems:"center", flexDirection:"column"}}>
             <img src={fire} height="120vh" width="100vw" alt='' />
+            <li  class="dropdown">
+              {/* <b style={{borderRadius:"25px", marginTop:"8vh", backgroundColor:"#17a2b8", color:"white", padding:"1%"}}>WAF Assessments</b> */}
+              <Button href="/scanlist" color='primary' size="sm" style={{borderRadius:"25px", marginTop:"8vh"}}>WAF Assessments</Button>
 
+              <li class="dropdown-content">
+                <li>
+                  <a href="dnslist">DNS Assessments</a>
+                </li>
+                <li>
+                  <a href="ssllist">SSL Assessments</a>
+                </li>
+                <li>
+                  <a href="genlist">Generated Payloads</a>
+                </li>
+              </li>
+            </li>
           </div>
           <div>
             <img src={gate} height="120vh" width="100vw" alt='' />

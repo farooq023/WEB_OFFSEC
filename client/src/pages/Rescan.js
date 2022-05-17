@@ -1,83 +1,90 @@
 
-import React from 'react';
+import React, { useEffect, useState } from "react";
+// import { Link } from "react-router-dom";
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { Table, Button } from 'reactstrap';
 
-// import Widget from '../components/Widget/Widget'; 
+const Rescan = ({ auth: { user } }) => {
 
-const Rescan = () => {
+  let [scanList, setScanList] = useState([]);
+
+  useEffect(() => {
+    fetch("/api/fetchscan/"+user.email, {
+      method: "GET"
+    }).then(function (response) {
+      response.json().then((res) => {
+        if (res.length > 0) {
+          setScanList(res);
+        }
+        else {
+          setScanList("0");
+        }
+      });
+    });
+  });
+
+  function rescan(dom){
+    // console.log(dom);
+    fetch("/api/sendscan/"+user.email+'/'+dom, {
+      method: "POST",
+    })
+    .then(function (response) {
+      response.json().then((res)=>{
+        // console.log(res);
+        if (res.result === 'ok') {
+          // setAlert('Scan Initiated Successfully', 'success');
+        }
+        else{
+          // setAlert('Server Error', 'danger');
+        }
+      })
+    });
+  }
 
   return (
-    <div>
-      <h1 style={{textAlign: 'center'}}><b>Assess Web Security</b></h1>
-      <h4 style={{textAlign: 'center'}}>Found Vulnerabilities</h4>
-      <br/>
-      <br/>
-      <br/>
-      
-      {/* <div>
-        {/* <Widget >
-        <table class="table">
-                <thead>
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Domain</th>
-                        <th scope="col">Vulnerability</th>
-                        <th scope="col">Date</th>
-                        <th scope="col">Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>comsats.com</td>
-                        <td>Broken Authentication</td>
-                        <td>30-11-2020</td>
-                        <td>
-                            <button style={{backgroundColor:'silver', color:'black'}}>
-                              Re-Scan
-                            </button>
-                        </td>
-                        
-                    </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td>abasyn.com</td>
-                        <td>CSRF</td>
-                        <td>20-01-2021</td>
-                        <td>
-                            <button style={{backgroundColor:'silver', color:'black'}}>
-                              Re-Scan
-                            </button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th scope="row">3</th>
-                        <td>uet.com</td>
-                        <td>Security Misconfiguration</td>
-                        <td>15-08-2021</td>
-                        <td>
-                            <button style={{backgroundColor:'silver', color:'black'}}>
-                              Re-Scan
-                            </button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th scope="row">4</th>
-                        <td>nust.com</td>
-                        <td>CSRF</td>
-                        <td>05-07-2020</td>
-                        <td>
-                            <button style={{backgroundColor:'silver', color:'black'}}>
-                                Re-Scan
-                            </button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </Widget> 
-      </div> */}
+    <div style={{height:"100vh", width:"100%", backgroundColor:"#F0F2F5", display:"flex", flexDirection:"column", alignItems:"center"}}>
+      <h1 style={{ marginTop:"7%", color:"#17a2b8" }}>
+        List of Completed Vulnerability Scans
+      </h1>
 
+      <div style={{ display: "flex", justifyContent: "center", marginTop:"5%", border:"5px solid #17a2b8", borderRadius:"25px", padding:"1.5%" }}>
+        <div className="scrollbar scrollbar-primary  mt-5 mx-auto" style={{height:"40vh", width: "30vw"}}>
+          <Table style={{width:"29vw"}}>
+            <thead>
+              <tr>
+                <th><u>Domain</u></th>
+                <th><u>Actions</u></th>
+              </tr>
+            </thead>
+            <tbody>
+              {scanList !== "0" ? (
+                scanList.map((obj) => (
+                  <tr>
+                    <td>{obj.Domain}</td>
+                    <td>
+                      <Button onClick={() => rescan(obj.Domain)} color='primary' size="sm" style={{borderRadius:"25px"}}>Rescan</Button>
+                    </td>
+                  </tr>
+                ))
+              ) : (
+                <td>No Results Found</td>
+              )}
+            </tbody>
+          </Table>
+        </div>
+      </div>
     </div>
   );
-}
+};
 
-export default Rescan;
+
+Rescan.propTypes = {
+  auth: PropTypes.object.isRequired
+};
+
+const mapStateToProps = (state) => ({
+  auth: state.auth
+});
+
+export default connect(mapStateToProps)(Rescan);

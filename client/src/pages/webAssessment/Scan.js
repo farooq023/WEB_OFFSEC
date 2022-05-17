@@ -18,6 +18,7 @@ const Scan = ({ setAlert, auth: { user } }) => {
     var filter = /^([a-z0-9]+(-[a-z0-9]+)*\.)+[a-z]{2,}$/;
     if (!filter.test(domain)){
         // setAlert('Invalid domain entry.', 'danger');
+        console.log('Invalid domain entry.');
     }
     else{
 
@@ -26,18 +27,21 @@ const Scan = ({ setAlert, auth: { user } }) => {
       })
       .then(function (response) {
         response.json().then((res)=>{
-          console.log(res.result);        
+          // console.log(res.result);        
           if (res.result === 'dead') {
+            console.log('Domain not alive.');
             // setAlert('Domain not alive.', 'danger');
           }
           else if (res.result === 'ok') {
-            // setAlert('Scan Initiated Successfully', 'success');
+            console.log('Scan Initiated Successfully.');
+            // setAlert('Scan Initiated Successfully.', 'success');
           }
           else{
-            // setAlert('Server Error', 'danger');
+            console.log('Server Error.');
+            // setAlert('Server Error.', 'danger');
           }
         })
-      })
+      });
 
       // const request = require('request');
       // request('http://'+domain, function (error, response, body) {

@@ -17,7 +17,8 @@ const Dns = ({ setAlert, auth: { user } }) => {
     e.preventDefault();
     var filter = /^([a-z0-9]+(-[a-z0-9]+)*\.)+[a-z]{2,}$/;
     if (!filter.test(domain)){
-        // setAlert('Invalid domain entry.', 'danger');
+      console.log('Invalid domain entry.');
+      // setAlert('Invalid domain entry.', 'danger');
     }
     else{
 
@@ -28,12 +29,15 @@ const Dns = ({ setAlert, auth: { user } }) => {
         response.json().then((res)=>{
           console.log(res.result);        
           if (res.result === 'dead') {
+            console.log('Domain not alive.');
             // setAlert('Domain not alive.', 'danger');
           }
           else if (res.result === 'ok') {
+            console.log('Scan Initiated Successfully.');
             // setAlert('Scan Initiated Successfully', 'success');
           }
           else{
+            console.log('Server Error.');
             // setAlert('Server Error', 'danger');
           }
         })
@@ -52,26 +56,6 @@ const Dns = ({ setAlert, auth: { user } }) => {
     }
     
   };
-
-  // const scan = () => {
-    
-  //   fetch("/api/sendscan/"+user.email+'/'+domain, {
-  //       method: "POST",
-  //   })
-  //   .then(function (response) {
-  //     response.json().then((res)=>{
-  //       console.log(res.result);        
-  //       if (res.result === 'ok') {
-  //         setAlert('Scan Initiated Successfully', 'success');
-  //       }
-  //       else{
-  //         setAlert('Server Error', 'danger');
-  //       }
-  //     })
-  //   })
-
-    
-  // }
 
   return (
     <div style={{height:"100vh", width:"100%", backgroundColor:"#F0F2F5", display:"flex", alignItems:"center", flexDirection:"column"}}>      
