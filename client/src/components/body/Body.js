@@ -6,6 +6,7 @@ import AdminDashboard from "./admin/AdminDashboard";
 import Register from "./auth/Register";
 import ActivationEmail from "./auth/ActivationEmail";
 import NotFound from "../utils/NotFound/NotFound";
+import NotAuthorized from "../utils/NotFound/NotAuthorized";
 // import PrivateRoute from "../utils/routing/PrivateRoute";
 
 import ForgotPass from "../body/auth/ForgotPassword";
@@ -112,131 +113,123 @@ function Body() {
           }
         />
         <Route
-          path="/edit_user/:id"
-          element={isAdmin ? <EditUser /> : <NotFound />}
-          exact
-        />
-        <Route
           path="assessmentresults"
-          element={isLogged ? <AssessmentResults /> : <NotFound />}
+          element={isLogged ? <AssessmentResults /> : <NotAuthorized />}
           exact
         />
         <Route
           path="scanlist"
-          element={isLogged ? <ScanList /> : <NotFound />}
+          element={isLogged ? <ScanList /> : <NotAuthorized />}
           exact
         />
         <Route
           path="dnslist"
-          element={isLogged ? <DnsList /> : <NotFound />}
+          element={isLogged ? <DnsList /> : <NotAuthorized />}
           exact
         />
         <Route
           path="dnsresults"
-          element={isLogged ? <DnsResults /> : <NotFound />}
+          element={isLogged ? <DnsResults /> : <NotAuthorized />}
           exact
         />
         <Route
           path="ssllist"
-          element={isLogged ? <SslList /> : <NotFound />}
+          element={isLogged ? <SslList /> : <NotAuthorized />}
           exact
         />
         <Route
           path="sslresults"
-          element={isLogged ? <SslResults /> : <NotFound />}
+          element={isLogged ? <SslResults /> : <NotAuthorized />}
           exact
         />
         <Route
           path="genresults"
-          element={isLogged ? <GenResults /> : <NotFound />}
+          element={isLogged ? <GenResults /> : <NotAuthorized />}
           exact
         />
         <Route
           path="genlist"
-          element={isLogged ? <GenList /> : <NotFound />}
+          element={isLogged ? <GenList /> : <NotAuthorized />}
           exact
         />
         <Route
           path="scanresults"
-          element={isLogged ? <ScanResults /> : <NotFound />}
+          element={isLogged ? <ScanResults /> : <NotAuthorized />}
           exact
         />
-        <Route path="scan" element={isLogged ? <Scan /> : <NotFound />} exact />
+        <Route
+          path="scan"
+          element={isLogged ? <Scan /> : <NotAuthorized />}
+          exact
+        />
         <Route
           path="rescan"
-          element={isLogged ? <Rescan /> : <NotFound />}
+          element={isLogged ? <Rescan /> : <NotAuthorized />}
           exact
         />
         <Route
           path="dns"
-          element={isLogged ? <Dns /> : <NotFound />}
+          element={isLogged ? <Dns /> : <NotAuthorized />}
           exact
         />
 
         <Route
           path="ssl"
-          element={isLogged ? <Ssl /> : <NotFound />}
+          element={isLogged ? <Ssl /> : <NotAuthorized />}
           exact
         />
         <Route
           path="payloads"
-          element={isLogged ? <Payloads /> : <NotFound />}
+          element={isLogged ? <Payloads /> : <NotAuthorized />}
           exact
         />
-        
-        {/* <Route
-          path="spoof"
-          element={isLogged ? <Spoof /> : <NotFound />}
-          exact   
-        /> */}
 
         <Route
           path="inbound"
-          element={isLogged ? <Inbound /> : <NotFound />}
+          element={isLogged ? <Inbound /> : <NotAuthorized />}
           exact
         />
         <Route
           path="outbound"
-          element={isLogged ? <Outbound /> : <NotFound />}
+          element={isLogged ? <Outbound /> : <NotAuthorized />}
           exact
         />
 
-        
-
         <Route
           path="inlist"
-          element={isLogged ? <InList /> : <NotFound />}
+          element={isLogged ? <InList /> : <NotAuthorized />}
           exact
         />
 
         <Route
           path="outlist"
-          element={isLogged ? <OutList /> : <NotFound />}
+          element={isLogged ? <OutList /> : <NotAuthorized />}
           exact
         />
 
         <Route
           path="inresult"
-          element={isLogged ? <InResult /> : <NotFound />}
+          element={isLogged ? <InResult /> : <NotAuthorized />}
           exact
         />
 
         <Route
           path="outresult"
-          element={isLogged ? <OutResult /> : <NotFound />}
+          element={isLogged ? <OutResult /> : <NotAuthorized />}
           exact
         />
 
         <Route
           path="agents"
-          element={isLogged ? <Agents /> : <NotFound />}
+          element={isLogged ? <Agents /> : <NotAuthorized />}
           exact
         />
         <Route
           path="getreport"
-          element={isLogged ? <Getreport /> : <NotFound />}
+          element={isLogged ? <Getreport /> : <NotAuthorized />}
           exact
         />
+        <Route path="/*" element={<NotFound />} />
       </Routes>
     </section>
   );
