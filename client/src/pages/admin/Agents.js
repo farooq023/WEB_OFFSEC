@@ -1,84 +1,99 @@
 
-import { connect } from 'react-redux';
-import React from 'react';
-import { agents } from '../../redux/actions/agents.js';
+import React, { useEffect, useState } from "react";
 import PropTypes from 'prop-types';
-import { Navigate } from 'react-router-dom';
-import axios from 'axios';
+import { connect } from 'react-redux';
+import { Table, Button } from 'reactstrap';
 
-const Agents = ({ agentsData, results, agents, isAgents }) => {
+import { setAlert } from "../../redux/actions/alert";
 
-  const onRemove = (email) => {
-    axios.delete('/api/agents/' + email);
-    getagents();
-  };
 
-  const getagents = async () => {
-    await agents();
-    if (isAgents) {
-      return <Navigate to="/agents" />;
-    }
-  };
+const Agents = ({ setAlert, auth: { user } }) => {
+
+  let [agentList, setAgentList] = useState([]);
+
+  useEffect(() => {
+    fetch("/api/agents", {
+      method: "GET"
+    }).then(function (response) {
+      response.json().then((res) => {
+        // console.log("res is",res);
+        if (res.length > 0) {
+          setAgentList(res);
+        }
+        else {
+          setAgentList("0");
+        }
+      });
+    });
+  }, []);
+
+  function remove(mail){
+
+    // console.log(mail);
+
+    fetch("/api/agents/"+mail, {
+      method: "DELETE"
+    }).then(function (response) {
+      response.json().then((res)=>{
+        if (res.result === 'ok') {
+          // console.log('Scan Initiated Successfully.');
+          setAlert('Agent Removed Successfully', 'success');
+        }
+        else{
+          // console.log('Server Error.');
+          setAlert('Agent does not exist', 'danger');
+        }
+      })
+    });
+
+  }
 
   return (
-    <div>
-      <h1 style={{ textAlign: 'center' }}>
-        {' '}
-        <b>All Agents</b>
+    <div style={{height:"100vh", width:"100%", backgroundColor:"#F0F2F5", display:"flex", flexDirection:"column", alignItems:"center"}}>
+      <h1 style={{ marginTop:"7%", color:"#17a2b8" }}>
+        Agent List
       </h1>
-      <br />
-      {/* <h4 style={{textAlign: 'center'}}>Your Ongoing Assessments</h4> */}
-      <br />
-      <br />
-      <br />
-      <div>
-        <table class="table">
-          <thead>
-            <tr>
-              <th scope="col">Name</th>
-              <th scope="col">Email</th>
-              <th scope="col">Actions</th>
-            </tr>
-          </thead>
 
-          <tbody>
-            {isAgents ? (
-              agentsData.map((obj) => (
-                <tr>
-                  <td>{obj.name}</td>
-                  <td>{obj.email}</td>
-                  <td>
-                    <button
-                      onClick={() => {
-                        onRemove(obj.email);
-                      }}
-                    >
-                      Remove Agent
-                    </button>
-                  </td>
-                </tr>
-              ))
-            ) : (
-              <td></td>
-            )}
-          </tbody>
-        </table>
-      </div>
-
-      <div>
+      <div style={{ display: "flex", justifyContent: "center", marginTop:"5%", border:"5px solid #17a2b8", borderRadius:"25px", padding:"1.5%" }}>
+        <div className="scrollbar scrollbar-primary  mt-5 mx-auto" style={{height:"50vh", width: "45vw"}}>
+          <Table style={{width:"44vw"}}>
+            <thead>
+              <tr>
+                <th><u>Name</u></th>
+                <th><u>Email</u></th>
+                <th><u>Actions</u></th>
+              </tr>
+            </thead>
+            <tbody>
+              {agentList !== "0" ? (
+                agentList.map((obj) => (
+                  <tr>
+                    <td>{obj.name}</td>
+                    <td>{obj.email}</td>
+                    <td>
+                      <Button onClick={() => remove(obj.email)} color='primary' size="sm" style={{borderRadius:"25px"}}>Remove</Button>
+                    </td>
+                  </tr>
+                ))
+              ) : (
+                <td>No Agents Found</td>
+              )}
+            </tbody>
+          </Table>
+        </div>
       </div>
     </div>
   );
 };
 
-const mapStateToProps = (state) => ({
-  agentsData: state.agents.agents,
-  isAgents: state.agents.isAgents
-});
 
 Agents.propTypes = {
-  agents: PropTypes.func.isRequired,
-  isAgents: PropTypes.bool.isRequired
+  auth: PropTypes.object.isRequired,
+  setAlert: PropTypes.func.isRequired,
 };
 
-export default connect(mapStateToProps, { agents })(Agents);
+const mapStateToProps = (state) => ({
+  auth: state.auth
+});
+
+export default connect(mapStateToProps, {setAlert})(Agents);
