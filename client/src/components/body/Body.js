@@ -219,12 +219,6 @@ function Body() {
           exact
         />
 
-        {/* <Route
-          path="agents"
-          element={isLogged ? <Agents /> : <NotAuthorized />}
-          exact
-        /> */}
-
         <Route
           path="/agents"
           element={
@@ -238,6 +232,7 @@ function Body() {
               <Navigate to="/login" />
             )
           }
+          exact
         />
 
         <Route

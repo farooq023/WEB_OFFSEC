@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { useLocation } from 'react-router-dom'
 import { Button, Table } from "reactstrap";
-import generatePDF from "../../pdfReporting/waf/dnsresultsPdf";
+import generateDNSReport from "../../pdfReporting/waf/generateDNSReport";
 import { Bar } from 'react-chartjs-2'
 
 const DnsResults = (props) => {
@@ -56,7 +56,7 @@ const DnsResults = (props) => {
           </h4>
         </div>
 
-        <Button className="btn btn-primary" style={{borderRadius:"25px", height:"9vh", width:"8vw"}} onClick={() => generatePDF(dnsResults, user)}>Get report</Button>
+        <Button className="btn btn-primary" style={{borderRadius:"25px", height:"9vh", width:"8vw"}} onClick={() => generateDNSReport(dnsResults, user)}>Get report</Button>
         
         <div style={{border:"5px solid #17a2b8", borderRadius:"25px", padding:"1.5%", height:"41vh", width:"32vw"}}>
           <Bar

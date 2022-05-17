@@ -7,39 +7,45 @@ import "jspdf-autotable";
 // from our API call
 // import { format } from "date-fns";
 
-// define a generatePDF function that accepts a tickets argument
-const generatePDF = (tickets, user) => {
+// define a generateDNSReport function that accepts a tickets argument
+const generatePayloadsReport = (PayloadsResults, user) => {
   // initialize jsPDF
+  let xss = PayloadsResults[0];
+  let sql = PayloadsResults[1];
+  let xsslength = PayloadsResults[2];
+  let xssReqs = PayloadsResults[3];
+  let sqllength = PayloadsResults[4];
+  let sqlReqs = PayloadsResults[5];
 
   const doc = new jsPDF();
-
   // define the columns we want and their titles
-  const tableColumn = ["Vulnerability", "Severity", "URL"];
+  const tableColumn = [
+    "XSS Vulnerabilities (" + xsslength + " / " + xssReqs + ")",
+    "SQL Vulnerabilities (" + sqllength + " / " + sqlReqs + ")",
+  ];
   // define an empty array of rows
   const tableRows = [];
-
-  // for each ticket pass all its data into an array
-  tickets.forEach((ticket) => {
-    const ticketData = [
-      ticket.Vulnerability,
-      ticket.Severity,
-      ticket.URL,
-      // called date-fns to format the date on the ticket
-      //   format(new Date(ticket.updated_at), "yyyy-MM-dd")
-    ];
-    // push each tickcet's info into a row
-    tableRows.push(ticketData);
-  });
+  if (xsslength > sqllength) {
+    for (let i = 0; i < xsslength; i++) {
+      const ticketData = [xss[i], sql[i]];
+      tableRows.push(ticketData);
+    }
+  } else {
+    for (let i = 0; i < sqllength; i++) {
+      const ticketData = [xss[i], sql[i]];
+      tableRows.push(ticketData);
+    }
+  }
 
   // startY is basically margin-top
   const date = Date().split(" ");
   // we use a date string to generate our filename.
   const dateStr = date[0] + date[1] + date[2] + date[3] + date[4];
   // ticket title. and margin-top + margin-left
-  doc.setTextColor(23, 162, 184);
   doc.setFontSize(20);
 
-  doc.text("Scan Results Report.", 80, 12);
+  doc.setTextColor(23, 162, 184);
+  doc.text("Generate Payloads Results Report.", 50, 12);
   doc.setTextColor(0, 0, 0);
   doc.setFontSize(12);
   doc.text("Email: " + user[0], 14, 20);
@@ -53,4 +59,4 @@ const generatePDF = (tickets, user) => {
   doc.save(`report_${dateStr}.pdf`);
 };
 
-export default generatePDF;
+export default generatePayloadsReport;
