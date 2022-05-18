@@ -15,13 +15,15 @@ const ScanResults = (props) => {
   const { date } = location.state;
   const { time } = location.state;
   const { dur } = location.state;
-  let [scanResults, setScanResults] = useState([]);
-  let user = [email, domain, date, time, dur];
 
+  let [scanResults, setScanResults] = useState([]);
   let [low, setLow] = useState(0);
   let [medium, setMedium] = useState(0);
   let [high, setHigh] = useState(0);
   let [critical, setCritical] = useState(0);
+
+  let user = [email, domain, date, time, dur];
+
 
   useEffect(() => {
     fetch("/api/fetchscan/"+email+'/'+domain, {
