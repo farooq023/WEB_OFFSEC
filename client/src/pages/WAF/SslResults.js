@@ -56,7 +56,7 @@ const SslResults = (props) => {
           </h4>
         </div>
 
-        <Button className="btn btn-primary" style={{borderRadius:"25px", height:"9vh", width:"8vw"}} onClick={() => generateSSLReport(sslResults, user)}>Get report</Button>
+        <Button className="btn btn-primary" style={{borderRadius:"25px", height:"7vh", width:"11vw"}} onClick={() => generateSSLReport(sslResults, user)}>Get report</Button>
         
         <div style={{border:"5px solid #17a2b8", borderRadius:"25px", padding:"1.5%", height:"41vh", width:"32vw"}}>
           <Bar

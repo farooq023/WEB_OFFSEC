@@ -71,7 +71,7 @@ const ScanResults = (props) => {
             <u>Duration</u>: {dur}
           </h4>
         </div>
-        <Button className="btn btn-primary" style={{borderRadius:"25px", height:"9vh", width:"8vw"}} onClick={() => generatePDF(scanResults, user)}>Get report</Button>
+        <Button className="btn btn-primary" style={{borderRadius:"25px", height:"7vh", width:"11vw"}} onClick={() => generatePDF(scanResults, user)}>Get report</Button>
         <div style={{border:"5px solid #17a2b8", borderRadius:"25px", padding:"1.5%", height:"41vh", width:"32vw"}}>
           {/* <h2>Visual Representation:</h2> */}
           {/* {set ?
@@ -175,7 +175,7 @@ const ScanResults = (props) => {
         </div>
       </div>
 
-      <div className="scrollbar scrollbar-primary  mt-5 mx-auto" style={{ width:"80vw", border:"5px solid #17a2b8", borderRadius:"10px", marginTop:"2%" }}>
+      <div className="scrollbar scrollbar-primary  mt-5 mx-auto" style={{ width:"80vw", border:"5px solid #17a2b8", borderRadius:"10px", marginTop:"1%", height:"33vh" }}>
         <Table style={{width:"79vw"}}>
           <thead>
             <tr>

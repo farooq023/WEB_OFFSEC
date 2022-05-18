@@ -94,7 +94,7 @@ const OutResult = (props) => {
         {/* <Button className="btn btn-primary" style={{borderRadius:"25px", height:"9vh", width:"8vw"}} onClick={() => generatePDF(sslResults, user)}>Get report</Button> */}
         <Button
           className="btn btn-primary"
-          style={{ borderRadius: "25px", height: "9vh", width: "8vw" }}
+          style={{ borderRadius: "25px", height: "7vh", width: "11vw" }}
           onClick={() => {
             outboundReport(outboundResults, user);
           }}

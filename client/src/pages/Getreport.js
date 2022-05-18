@@ -1,5 +1,4 @@
 
-
 import React, { useEffect, useState }  from 'react';
 import { Table, Button } from 'reactstrap';
 import PropTypes from 'prop-types';
@@ -34,7 +33,7 @@ const Getreport = ({ auth: { user } }) => {
             }
         });
     });
-    }, []);
+    });
 
     function genReport(dom, type, email){
         if (type == "Vulnerability Scan"){

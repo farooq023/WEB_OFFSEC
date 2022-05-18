@@ -1,11 +1,14 @@
+
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { Table, Button } from "reactstrap";
-
 import { setAlert } from "../../redux/actions/alert";
 
+// import "./getreport.css";
+
 const Agents = ({ setAlert, auth: { user } }) => {
+
   let [agentList, setAgentList] = useState([]);
 
   useEffect(() => {
