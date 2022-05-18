@@ -30,6 +30,7 @@ const Ssl = ({ setAlert, auth: { user } }) => {
           }
           else if (res.result === 'ok') {
             setAlert('Scan Initiated Successfully', 'success');
+            setDomain('');
           }
           else{
             setAlert('Server Error', 'danger');
@@ -88,6 +89,7 @@ const Ssl = ({ setAlert, auth: { user } }) => {
             style={{border:"2px solid #17a2b8", height:"5vh", width:"15vw", marginTop:"2%", padding:"2%", borderRadius:"15px"}}
             type="text"
             placeholder="For example: comsats.edu.pk"
+            value={domain}
             onChange={ (e) => setDomain(e.target.value) }
           />
         </form>

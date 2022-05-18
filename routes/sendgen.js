@@ -37,6 +37,7 @@ router.post('/:email/:domain', async (req, res) => {
         if(r==1){
           request('http://192.168.1.157:8000/genpay/'+req.params.domain+"/"+mail, function (error, response, body) {
           try{
+            console.log("response.statusCode", response.statusCode)
             if(response.statusCode == 200){
               // console.log("y set to 1.");
               y=1;
@@ -52,14 +53,14 @@ router.post('/:email/:domain', async (req, res) => {
             else{
               res.send( {result:'errors'} );
             }
-          }, 1500 );
+          }, 2500 );
           }
 
         else{
           res.send( {result:'dead'} );
         }
 
-      }, 2500 );
+      }, 3500 );
 
 
       // setTimeout(

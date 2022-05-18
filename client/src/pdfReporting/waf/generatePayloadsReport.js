@@ -10,8 +10,10 @@ import "jspdf-autotable";
 // define a generateDNSReport function that accepts a tickets argument
 const generatePayloadsReport = (PayloadsResults, user) => {
   // initialize jsPDF
+
   let xss = PayloadsResults[0];
   let sql = PayloadsResults[1];
+
   let xsslength = PayloadsResults[2];
   let xssReqs = PayloadsResults[3];
   let sqllength = PayloadsResults[4];
@@ -19,10 +21,16 @@ const generatePayloadsReport = (PayloadsResults, user) => {
 
   const doc = new jsPDF();
   // define the columns we want and their titles
+  
   const tableColumn = [
-    "XSS Vulnerabilities (" + xsslength + " / " + xssReqs + ")",
-    "SQL Vulnerabilities (" + sqllength + " / " + sqlReqs + ")",
+    "XSS Vulnerabilities (" + (xss[0] == '-' ? 0 : xsslength) + " / " + xssReqs + ")", 
+    "SQL Vulnerabilities (" + (sql[0] == '-' ? 0 : sqllength) + " / " + sqlReqs + ")"
   ];
+
+  // const tableColumn = [
+  //   "a","b"
+  // ];
+
   // define an empty array of rows
   const tableRows = [];
   if (xsslength > sqllength) {

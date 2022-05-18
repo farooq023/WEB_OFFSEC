@@ -42,10 +42,10 @@ const inboundReport = (tickets, user) => {
   doc.text("Gateway Score : " + tickets[2], 14, 74);
   if (tickets[3] === "FAIL") {
     doc.setTextColor(184, 28, 28);
-    doc.text("Gateway Status :" + tickets[3], 14, 82);
+    doc.text("Gateway Status : " + tickets[3], 14, 82);
   } else {
     doc.setTextColor(17, 184, 23);
-    doc.text("Gateway Status :" + tickets[3], 14, 82);
+    doc.text("Gateway Status : " + tickets[3], 14, 82);
   }
   // we define the name of our PDF file.
   doc.save(`report_${dateStr}.pdf`);

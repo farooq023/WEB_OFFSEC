@@ -40,13 +40,13 @@ const inboundReport = (tickets, user) => {
   doc.text("Files Imported in Test #1 : " + tickets[0], 14, 58);
   doc.text("Files Imported in Test #2 : " + tickets[1], 14, 66);
   doc.text("Files Imported in Test #3 : " + tickets[2], 14, 74);
-  doc.text("Gateway Score :" + tickets[3], 14, 82);
+  doc.text("Gateway Score : " + tickets[3], 14, 82);
   if (tickets[4] === "FAIL") {
     doc.setTextColor(184, 28, 28);
-    doc.text("Gateway Status :" + tickets[4], 14, 90);
+    doc.text("Gateway Status : " + tickets[4], 14, 90);
   } else {
     doc.setTextColor(17, 184, 23);
-    doc.text("Gateway Status :" + tickets[4], 14, 90);
+    doc.text("Gateway Status : " + tickets[4], 14, 90);
   }
   // we define the name of our PDF file.
   doc.save(`report_${dateStr}.pdf`);

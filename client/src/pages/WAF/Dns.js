@@ -34,6 +34,7 @@ const Dns = ({ setAlert, auth: { user } }) => {
           else if (res.result === 'ok') {
             // console.log('Scan Initiated Successfully.');
             setAlert('Scan Initiated Successfully', 'success');
+            setDomain('');
           }
           else{
             // console.log('Server Error.');
@@ -73,6 +74,7 @@ const Dns = ({ setAlert, auth: { user } }) => {
             style={{border:"2px solid #17a2b8", height:"5vh", width:"15vw", marginTop:"2%", padding:"2%", borderRadius:"15px"}}
             type="text"
             placeholder="For example: comsats.edu.pk"
+            value={domain}
             onChange={ (e) => setDomain(e.target.value) }
           />
         </form>

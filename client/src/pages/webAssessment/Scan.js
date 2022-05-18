@@ -31,13 +31,15 @@ const Scan = ({ setAlert, auth: { user } }) => {
       .then(function (response) {
         response.json().then((res)=>{
           console.log(res.result);        
-          if (res.result === 'ok') {
-            // console.log('Scan Initiated Successfully.');
-            setAlert('Scan Initiated Successfully.', 'success');
+          if (res.result == 'dead') {
+            setAlert('Domain not alive.', 'danger');
+          }
+          else if (res.result == 'ok') {
+            setAlert('Scan Initiated Successfully', 'success');
+            setDomain('');
           }
           else{
-            // console.log('Server Error.');
-            setAlert('Server Error.', 'danger');
+            setAlert('Server Error', 'danger');
           }
         })
       });
@@ -92,6 +94,7 @@ const Scan = ({ setAlert, auth: { user } }) => {
           <input
             style={{border:"2px solid #17a2b8", height:"5vh", width:"15vw", marginTop:"2%", padding:"2%", borderRadius:"15px"}}
             type="text"
+            value={domain}
             placeholder="For example: comsats.edu.pk"
             onChange={ (e) => setDomain(e.target.value) }
           />

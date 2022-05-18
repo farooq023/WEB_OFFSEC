@@ -16,7 +16,7 @@ const generateDNSReport = (dnsResults, user) => {
   const doc = new jsPDF();
 
   // define the columns we want and their titles
-  const tableColumn = ["DNS History", "Matching Responses"];
+  const tableColumn = ["DNS History ("+(ips[0] == '-' ? 0 : ips.length)+')', "Matching Responses ("+(matchingips[0] == '-' ? 0 : matchingips.length)+')'];
   // define an empty array of rows
   const tableRows = [];
 

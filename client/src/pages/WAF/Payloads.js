@@ -13,6 +13,7 @@ const Payloads = ({ setAlert, auth: { user } }) => {
   const onSubmit = (e) => {
 
     e.preventDefault();
+    // console.log(domain);    
     var filter = /^([a-z0-9]+(-[a-z0-9]+)*\.)+[a-z]{2,}$/;
     if (!filter.test(domain)){
       // console.log('Invalid domain entry.');
@@ -31,10 +32,12 @@ const Payloads = ({ setAlert, auth: { user } }) => {
           }
           else if (res.result === 'ok') {
             setAlert('Scan Initiated Successfully', 'success');
+            setDomain('');
           }
           else{
             setAlert('Server Error', 'danger');
           }
+
         })
       });
 
@@ -59,6 +62,7 @@ const Payloads = ({ setAlert, auth: { user } }) => {
             style={{border:"2px solid #17a2b8", height:"5vh", width:"15vw", marginTop:"2%", padding:"2%", borderRadius:"15px"}}
             type="text"
             placeholder="For example: comsats.edu.pk"
+            value={domain}
             onChange={ (e) => setDomain(e.target.value) }
           />
         </form>

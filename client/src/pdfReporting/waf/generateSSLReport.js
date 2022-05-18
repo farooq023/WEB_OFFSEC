@@ -16,7 +16,7 @@ const generateSSLReport = (sslResults, user) => {
   const doc = new jsPDF();
 
   // define the columns we want and their titles
-  const tableColumn = ["Supported Ciphers", "Bypassing Ciphers"];
+  const tableColumn = ["Supported Ciphers ("+(supportedCipher[0] == '-' ? 0 : supportedCipher.length)+')', "Bypassing Ciphers ("+(bypassedCiphers[0] == '-' ? 0 : bypassedCiphers.length)+')'];
   // define an empty array of rows
   const tableRows = [];
 
