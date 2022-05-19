@@ -33,26 +33,25 @@ function ForgotPassword() {
     }
     
     return (
-        <div className="fg_pass" style={{ height: "100%", width: "100%", backgroundColor: "#F0F2F5", position:"absolute" }}>
-            <div>
-            <h2 style={{marginTop:"13vh", color:"var(--primary-color)"}}>Forgot Your Password?</h2>
-            <div className="row">
-                {err && showErrMsg(err)}
-                {success && showSuccessMsg(success)}
+        <div className="fg_pass" style={{ height: "100vh", width: "100%", backgroundColor: "#F0F2F5" }}>
+            <div style={{display:"flex", alignItems: "center", flexDirection: "column"}}>
+                <h2 style={{marginTop:"12vh", color:"var(--primary-color)"}}>Forgot Your Password?</h2>
+                <div className="row">
+                    {err && showErrMsg(err)}
+                    {success && showSuccessMsg(success)}
 
-                <label style={{color:"var(--primary-color)"}} htmlFor="email">Enter your email address:</label>
-                <input style={{borderRadius: "25px", borderColor:"var(--primary-color)"}} type="email" name="email" id="email" value={email} onChange={handleChangeInput} />
-                <div style={{display:"flex", justifyContent:"center"}}>
-                <button style={{borderRadius: "25px", backgroundColor:"var(--primary-color)", borderColor:"var(--primary-color)"}}
-                    onClick={forgotPassword}>Verify your email
-                </button>
+                    <label style={{color:"var(--primary-color)"}} htmlFor="email">Enter your email address:</label>
+                    <input style={{borderRadius: "25px", borderColor:"var(--primary-color)"}} type="email" name="email" id="email" value={email} onChange={handleChangeInput} />
+                    <div style={{display:"flex", justifyContent:"center"}}>
+                    <button style={{borderRadius: "25px", backgroundColor:"var(--primary-color)", borderColor:"var(--primary-color)"}}
+                        onClick={forgotPassword}>Verify your email
+                    </button>
+                    </div>
                 </div>
-                
-            </div>
             </div>
         </div>
     )
 }
 
-export default ForgotPassword
+export default ForgotPassword;
  

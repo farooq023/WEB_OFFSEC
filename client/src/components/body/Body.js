@@ -74,11 +74,19 @@ function Body() {
           element={isLogged ? <Navigate to="/dashboard" /> : <ForgotPass />}
           exact
         />
+
         <Route
           path="/user/reset/:token"
           element={isLogged ? <NotFound /> : <ResetPass />}
           exact
         />
+        
+        {/* <Route
+          path="/user/reset"
+          element={isLogged ? <NotFound /> : <ResetPass />}
+          exact
+        /> */}
+        
         <Route
           path="/user/activate/:activation_token"
           element={<ActivationEmail />}

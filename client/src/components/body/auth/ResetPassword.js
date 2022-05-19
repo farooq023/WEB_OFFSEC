@@ -46,22 +46,24 @@ function ResetPassword() {
 
 
     return (
-        <div className="fg_pass">
-            <h2>Reset Your Password</h2>
+        <div className="fg_pass" style={{height: "100vh", width: "100%", backgroundColor: "#F0F2F5"}} >
+            <div style={{display:"flex", alignItems: "center", flexDirection: "column"}}>
+                <h2 style={{marginTop:"13vh", color:"var(--primary-color)"}}>Reset Your Password</h2>
+                <div className="row">
+                    {err && showErrMsg(err)}
+                    {success && showSuccessMsg(success)}
 
-            <div className="row">
-                {err && showErrMsg(err)}
-                {success && showSuccessMsg(success)}
+                    <label style={{color:"var(--primary-color)"}} htmlFor="password">Password</label>
+                    <input style={{borderRadius: "25px", borderColor:"var(--primary-color)"}} type="password" name="password" id="password" value={password}
+                    onChange={handleChangeInput} />
 
-                <label htmlFor="password">Password</label>
-                <input type="password" name="password" id="password" value={password}
-                onChange={handleChangeInput} />
-
-                <label htmlFor="cf_password">Confirm Password</label>
-                <input type="password" name="cf_password" id="cf_password" value={cf_password}
-                onChange={handleChangeInput} />         
-
-                <button onClick={handleResetPass}>Reset Password</button>
+                    <label style={{color:"var(--primary-color)"}} htmlFor="cf_password">Confirm Password</label>
+                    <input style={{borderRadius: "25px", borderColor:"var(--primary-color)"}} type="password" name="cf_password" id="cf_password" value={cf_password}
+                    onChange={handleChangeInput} />
+                    <div style={{display:"flex", justifyContent:"center", marginTop:"2vh"}}>
+                        <button style={{borderRadius: "25px", backgroundColor:"var(--primary-color)", borderColor:"var(--primary-color)"}} onClick={handleResetPass}>Reset Password</button>
+                    </div>
+                </div>
             </div>
         </div>
     )

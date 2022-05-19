@@ -51,13 +51,7 @@ const Dashboard = ({ auth: { user } }) => {
   });
   return (
     <div style={{ height: "100vh", width: "100%", backgroundColor: "#F0F2F5" }}>
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          flexDirection: "column",
-        }}
-      >
+      <div style={{ display: "flex", alignItems: "center", flexDirection: "column" }}>
         <h1 style={{ marginTop: "7%", color: "#17a2b8" }}>Dashboard</h1>
         <div>
           <i className="fas fa-user" /> Welcome {user?.name}
