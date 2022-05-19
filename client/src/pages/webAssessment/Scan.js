@@ -30,9 +30,9 @@ const Scan = ({ setAlert, auth: { user } }) => {
       })
       .then(function (response) {
         response.json().then((res)=>{
-          console.log(res.result);        
+          console.log(res.result);
           if (res.result == 'dead') {
-            setAlert('Domain not alive.', 'danger');
+            setAlert('Domain took too long to respond.', 'danger');
           }
           else if (res.result == 'ok') {
             setAlert('Scan Initiated Successfully', 'success');

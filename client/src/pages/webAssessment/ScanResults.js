@@ -182,6 +182,7 @@ const ScanResults = (props) => {
               <th scope="col">Vulnerability</th>
               <th scope="col">Severity</th>
               <th scope="col">URL</th>
+              <th scope="col">Possible Mitigation</th>
             </tr>
           </thead>
           <tbody>
@@ -191,6 +192,7 @@ const ScanResults = (props) => {
                   <td>{obj.Vulnerability}</td>
                   <td>{obj.Severity}</td>
                   <td>{obj.URL}</td>
+                  <td>{obj.Mit}</td>
                 </tr>
               ))
             ) : (

@@ -43,7 +43,7 @@ const Getreport = ({ auth: { user } }) => {
               }).then(function (response) {
                 response.json().then((res) => {
                     for(let i=0; i<res.length; i++){
-                        if(res[i].Domain == dom && res[i].Email == email){
+                        if(res[i].Domain == dom){
                             var date = res[i].Date;
                             var time = res[i].Time;
                             var dur = res[i].Duration;
@@ -69,7 +69,8 @@ const Getreport = ({ auth: { user } }) => {
               }).then(function (response) {
                 response.json().then((res) => {
                     for(let i=0; i<res.length; i++){
-                        if(res[i].Domain == dom && res[i].Email == email){
+                        // if(res[i].Domain == dom && res[i].Email == email){
+                        if(res[i].Domain == dom){
                             var date = res[i].Date;
                             var time = res[i].Time;
                             var dur = res[i].Duration;
@@ -98,7 +99,7 @@ const Getreport = ({ auth: { user } }) => {
               }).then(function (response) {
                 response.json().then((res) => {
                     for(let i=0; i<res.length; i++){
-                        if(res[i].Domain == dom && res[i].Email == email){
+                        if(res[i].Domain == dom){
                             var date = res[i].Date;
                             var time = res[i].Time;
                             var dur = res[i].Duration;
@@ -127,7 +128,7 @@ const Getreport = ({ auth: { user } }) => {
               }).then(function (response) {
                 response.json().then((res) => {
                     for(let i=0; i<res.length; i++){
-                        if(res[i].Domain == dom && res[i].Email == email){
+                        if(res[i].Domain == dom){
                             var date = res[i].Date;
                             var time = res[i].Time;
                             var dur = res[i].Duration;

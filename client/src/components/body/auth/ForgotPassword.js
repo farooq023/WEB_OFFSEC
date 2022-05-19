@@ -33,9 +33,9 @@ function ForgotPassword() {
     }
     
     return (
-        <div className="fg_pass">
-            <h2>Forgot Your Password?</h2>
-
+        <div className="fg_pass" style={{ height: "100%", width: "100%", backgroundColor: "#F0F2F5", position:"absolute" }}>
+            <div>
+            <h2 style={{marginTop:"10vh"}}>Forgot Your Password?</h2>
             <div className="row">
                 {err && showErrMsg(err)}
                 {success && showSuccessMsg(success)}
@@ -44,6 +44,7 @@ function ForgotPassword() {
                 <input type="email" name="email" id="email" value={email}
                 onChange={handleChangeInput} />
                 <button onClick={forgotPassword}>Verify your email</button>
+            </div>
             </div>
         </div>
     )

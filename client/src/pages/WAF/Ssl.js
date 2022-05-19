@@ -25,10 +25,10 @@ const Ssl = ({ setAlert, auth: { user } }) => {
       .then(function (response) {
         response.json().then((res)=>{
           console.log(res.result);        
-          if (res.result === 'dead') {
-            setAlert('Domain not alive.', 'danger');
+          if (res.result == 'dead') {
+            setAlert('Domain took too long to respond.', 'danger');
           }
-          else if (res.result === 'ok') {
+          else if (res.result == 'ok') {
             setAlert('Scan Initiated Successfully', 'success');
             setDomain('');
           }

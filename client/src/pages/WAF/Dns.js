@@ -27,11 +27,11 @@ const Dns = ({ setAlert, auth: { user } }) => {
       .then(function (response) {
         response.json().then((res)=>{
           console.log(res.result);        
-          if (res.result === 'dead') {
+          if (res.result == 'dead') {
             // console.log('Domain not alive.');
-            setAlert('Domain not alive.', 'danger');
+            setAlert('Domain took too long to respond.', 'danger');
           }
-          else if (res.result === 'ok') {
+          else if (res.result == 'ok') {
             // console.log('Scan Initiated Successfully.');
             setAlert('Scan Initiated Successfully', 'success');
             setDomain('');

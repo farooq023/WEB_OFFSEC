@@ -14,7 +14,10 @@ const generatePDF = (tickets, user) => {
   const doc = new jsPDF();
 
   // define the columns we want and their titles
-  const tableColumn = ["Vulnerability", "Severity", "URL"];
+  
+  // const tableColumn = ["Vulnerability", "Severity", "URL"];
+  const tableColumn = ["Vulnerability", "Severity", "URL", "Mitigation"];
+
   // define an empty array of rows
   const tableRows = [];
 
@@ -24,6 +27,8 @@ const generatePDF = (tickets, user) => {
       ticket.Vulnerability,
       ticket.Severity,
       ticket.URL,
+      ticket.Mit,
+
       // called date-fns to format the date on the ticket
       //   format(new Date(ticket.updated_at), "yyyy-MM-dd")
     ];

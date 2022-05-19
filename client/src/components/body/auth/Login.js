@@ -87,9 +87,9 @@ function Login({ setAlert, auth: { isLogged, isAdmin } }) {
           flexDirection: "column",
         }}
       >
-        <h1 style={{ color: "#1877F2" }}>
+        <h1 style={{ color: "var(--primary-color)" }}>
           Web Offensive Security{" "}
-          <i class="fas fa-lock" style={{ color: "#1877F2" }} />
+          <i class="fas fa-lock" style={{ color: "var(--primary-color)" }} />
         </h1>
         <text style={{ fontSize: "125%" }}>
           Use your registered email to login to Web Offensive Security.
@@ -106,11 +106,11 @@ function Login({ setAlert, auth: { isLogged, isAdmin } }) {
         >
           <i
             class="fas fa-fingerprint"
-            style={{ color: "#1877F2", fontSize: "15vh" }}
+            style={{ color: "var(--primary-color)", fontSize: "15vh" }}
           />
           <i
             class="fas fa-key"
-            style={{ color: "#1877F2", fontSize: "15vh" }}
+            style={{ color: "var(--primary-color)", fontSize: "15vh" }}
           />
         </div>
       </div>
@@ -120,14 +120,14 @@ function Login({ setAlert, auth: { isLogged, isAdmin } }) {
           marginLeft: "6%",
           height: "60%",
           width: "25%",
-          border: "2.5px solid #1877F2",
+          border: "2.5px solid var(--primary-color)",
           borderRadius: "5%",
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
         }}
       >
-        <h2 style={{ color: "#1877F2", marginTop: "8%" }}>
+        <h2 style={{ color: "var(--primary-color)", marginTop: "8%" }}>
           {/* <div style={{width:"100%", display:"flex", flexDirection:"row", justifyContent:"center"}}> */}
           <i className="fas fa-user" style={{}} /> Sign In
           {/* <text style={{fontSize:'125%', marginLeft:"2%"}}>Become An Agent Now!</text> */}
@@ -146,7 +146,7 @@ function Login({ setAlert, auth: { isLogged, isAdmin } }) {
         >
           <input
             style={{
-              border: "2px solid #1877F2",
+              border: "2px solid var(--primary-color)",
               height: "15%",
               width: "80%",
               marginTop: "2%",
@@ -161,7 +161,7 @@ function Login({ setAlert, auth: { isLogged, isAdmin } }) {
           />
           <input
             style={{
-              border: "2px solid #1877F2",
+              border: "2px solid var(--primary-color)",
               height: "15%",
               width: "80%",
               marginTop: "2%",
@@ -183,7 +183,7 @@ function Login({ setAlert, auth: { isLogged, isAdmin } }) {
               backgroundColor: "#1877f2",
               color: "white",
               borderRadius: "25px",
-              borderColor: "#1877f2",
+              borderColor: "var(--primary-color)",
             }}
             value="Sign-in"
           />

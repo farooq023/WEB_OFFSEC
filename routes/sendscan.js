@@ -35,10 +35,10 @@ router.post('/:email/:domain', async (req, res) => {
         // console.log("entered timeout1");
 
         if(r==1){
-          request('http://192.168.1.157:8000/deepscan0/'+req.params.domain+"/"+mail, function (error, response, body) {
+          request('http://192.168.1.157:8000/deepscan0/'+req.params.domain+"/"+mail, function (error, response2, body) {
           try{
-            console.log("kali response:", response.statusCode);
-            if(response.statusCode == 200){
+            console.log("kali response", response2.statusCode);
+            if(response2.statusCode == 200){
               // console.log("y set to 1.");
               y=1;
             }
@@ -61,7 +61,7 @@ router.post('/:email/:domain', async (req, res) => {
           res.send( {result:'dead'} );
         }
 
-      }, 4000 );
+      }, 3500 );
 
 
       // setTimeout(

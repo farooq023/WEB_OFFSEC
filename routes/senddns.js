@@ -22,7 +22,7 @@ router.post('/:email/:domain', async (req, res) => {
 
       request('http://'+req.params.domain, function (error, response, body) {
         try{
-          console.log(response.statusCode);
+          console.log("Domain response", response.statusCode);
           if(response.statusCode == 200 || response.statusCode == 401 || response.statusCode == 403){
             r=1;
           }
@@ -35,15 +35,17 @@ router.post('/:email/:domain', async (req, res) => {
         // console.log("entered timeout1");
 
         if(r==1){
-          request('http://192.168.1.157:8000/dns/'+req.params.domain+"/"+mail, function (error, response, body) {
+          request('http://192.168.1.157:8000/dns/'+req.params.domain+"/"+mail, function (error, response2, body) {
           try{
-            if(response.statusCode == 200){
+            console.log("kali response", response2.statusCode);
+            if(response2.statusCode == 200){
               // console.log("y set to 1.");
               y=1;
             }
           }
           catch{}
           });
+          
           setTimeout( ()=> {
             // console.log("entered timeout2");
             if(y==1){
@@ -59,7 +61,7 @@ router.post('/:email/:domain', async (req, res) => {
           res.send( {result:'dead'} );
         }
 
-      }, 2500 );
+      }, 3500 );
 
 
       // setTimeout(

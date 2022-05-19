@@ -19,7 +19,7 @@ const Outbound = ({ setAlert, auth: { user } }) => {
     .then(function (response) {
       response.json().then((res)=>{
         console.log(res.result);
-        if (res.result === 'ok') {
+        if (res.result == 'ok') {
           setAlert('Assessment Initiated Successfully', 'success');
         }
         else{
