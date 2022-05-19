@@ -180,7 +180,7 @@ function Login({ setAlert, auth: { isLogged, isAdmin } }) {
             style={{
               height: "15%",
               width: "80%",
-              backgroundColor: "#1877f2",
+              backgroundColor: "var(--primary-color)",
               color: "white",
               borderRadius: "25px",
               borderColor: "var(--primary-color)",
@@ -189,7 +189,7 @@ function Login({ setAlert, auth: { isLogged, isAdmin } }) {
           />
         </form>
         <div className="row">
-          <Link to="/forgot_password">Forgot your password?</Link>
+          <Link to="/forgot_password">Forgot password?</Link>
         </div>
         <p className="my-1">
           Not an agent? <Link to="/register">Register Now</Link>
