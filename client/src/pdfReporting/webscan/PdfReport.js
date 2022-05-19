@@ -14,7 +14,7 @@ const generatePDF = (tickets, user) => {
   const doc = new jsPDF();
 
   // define the columns we want and their titles
-  
+
   // const tableColumn = ["Vulnerability", "Severity", "URL"];
   const tableColumn = ["Vulnerability", "Severity", "URL", "Mitigation"];
 
@@ -27,7 +27,7 @@ const generatePDF = (tickets, user) => {
       ticket.Vulnerability,
       ticket.Severity,
       ticket.URL,
-      ticket.Mit,
+      ticket.Mit === null ? "   -" : ticket.Mit,
 
       // called date-fns to format the date on the ticket
       //   format(new Date(ticket.updated_at), "yyyy-MM-dd")
@@ -52,7 +52,23 @@ const generatePDF = (tickets, user) => {
   doc.text("Date: " + user[2], 14, 32);
   doc.text("Time: " + user[3], 100, 32);
   doc.text("Duration: " + user[4], 14, 44);
-  doc.autoTable(tableColumn, tableRows, { startY: 50 });
+  doc.autoTable(tableColumn, tableRows, {
+    startY: 50,
+    columnStyles: {
+      0: {
+        columnWidth: "auto",
+      },
+      1: {
+        columnWidth: "auto",
+      },
+      2: {
+        columnWidth: 40,
+      },
+      3: {
+        columnWidth: "auto",
+      },
+    },
+  });
 
   // we define the name of our PDF file.
   doc.save(`report_${dateStr}.pdf`);
