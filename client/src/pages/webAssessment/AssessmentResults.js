@@ -5,7 +5,7 @@ import { Button } from "reactstrap";
 import web from "../../assets/web.png";
 import fire from "../../assets/firewall.png";
 import gate from "../../assets/gateway.png";
-import { IoIosArrowDropdownCircle ,IoIosArrowDropdown} from "react-icons/io";
+import { IoIosArrowDropdownCircle } from "react-icons/io";
 
 const AssessmentResults = () => {
   return (
