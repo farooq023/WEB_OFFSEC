@@ -5,7 +5,7 @@ import { Button, Table } from "reactstrap";
 import generateSSLReport from "../../pdfReporting/waf/generateSSLReport";
 import { Bar } from 'react-chartjs-2'
 
-const SslResults = (props) => {
+const SslResults = () => {
 
   const location = useLocation();
   const { email } = location.state;
@@ -65,7 +65,7 @@ const SslResults = (props) => {
               datasets: [
                 {
                   label: ['Visual Representation:'],
-                  data: [supported[0] == '-' ? 0 : supported.length , bypassing[0] == '-' ? 0 : bypassing.length],
+                  data: [supported[0] === '-' ? 0 : supported.length , bypassing[0] = '-' ? 0 : bypassing.length],
                   backgroundColor: ["green", "red"],
                   borderColor: [
                     'rgba(255, 99, 132, 1)',
@@ -113,7 +113,7 @@ const SslResults = (props) => {
           <Table style={{width:"39vw"}}>
             <thead>
               <tr>
-                <th scope="col">Supported Ciphers ({supported[0] == '-' ? 0 : supported.length})</th>
+                <th scope="col">Supported Ciphers ({supported[0] === '-' ? 0 : supported.length})</th>
               </tr>
             </thead>
             <tbody>
@@ -133,7 +133,7 @@ const SslResults = (props) => {
           <Table style={{width:"39vw"}}>
             <thead>
               <tr>
-                <th scope="col">Bypassed Ciphers ({bypassing[0] == '-' ? 0 : bypassing.length})</th>
+                <th scope="col">Bypassed Ciphers ({bypassing[0] === '-' ? 0 : bypassing.length})</th>
               </tr>
             </thead>
 

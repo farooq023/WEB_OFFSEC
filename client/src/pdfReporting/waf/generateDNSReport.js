@@ -1,13 +1,5 @@
-/* eslint-disable no-useless-concat */
-// services/reportGenerator.js
-
 import jsPDF from "jspdf";
 import "jspdf-autotable";
-// Date Fns is used to format the dates we receive
-// from our API call
-// import { format } from "date-fns";
-
-// define a generateDNSReport function that accepts a tickets argument
 const generateDNSReport = (dnsResults, user) => {
   // initialize jsPDF
   let ips = dnsResults[0];
@@ -16,7 +8,12 @@ const generateDNSReport = (dnsResults, user) => {
   const doc = new jsPDF();
 
   // define the columns we want and their titles
-  const tableColumn = ["DNS History ("+(ips[0] == '-' ? 0 : ips.length)+')', "Matching Responses ("+(matchingips[0] == '-' ? 0 : matchingips.length)+')'];
+  const tableColumn = [
+    "DNS History (" + (ips[0] === "-" ? 0 : ips.length) + ")",
+    "Matching Responses (" +
+      (matchingips[0] === "-" ? 0 : matchingips.length) +
+      ")",
+  ];
   // define an empty array of rows
   const tableRows = [];
 

@@ -1,16 +1,6 @@
-/* eslint-disable no-useless-concat */
-// services/reportGenerator.js
-
 import jsPDF from "jspdf";
 import "jspdf-autotable";
-// Date Fns is used to format the dates we receive
-// from our API call
-// import { format } from "date-fns";
-
-// define a generateDNSReport function that accepts a tickets argument
 const generatePayloadsReport = (PayloadsResults, user) => {
-  // initialize jsPDF
-
   let xss = PayloadsResults[0];
   let sql = PayloadsResults[1];
 
@@ -21,15 +11,19 @@ const generatePayloadsReport = (PayloadsResults, user) => {
 
   const doc = new jsPDF();
   // define the columns we want and their titles
-  
-  const tableColumn = [
-    "XSS Vulnerabilities (" + (xss[0] == '-' ? 0 : xsslength) + " / " + xssReqs + ")", 
-    "SQL Vulnerabilities (" + (sql[0] == '-' ? 0 : sqllength) + " / " + sqlReqs + ")"
-  ];
 
-  // const tableColumn = [
-  //   "a","b"
-  // ];
+  const tableColumn = [
+    "XSS Vulnerabilities (" +
+      (xss[0] === "-" ? 0 : xsslength) +
+      " / " +
+      xssReqs +
+      ")",
+    "SQL Vulnerabilities (" +
+      (sql[0] === "-" ? 0 : sqllength) +
+      " / " +
+      sqlReqs +
+      ")",
+  ];
 
   // define an empty array of rows
   const tableRows = [];
@@ -45,11 +39,8 @@ const generatePayloadsReport = (PayloadsResults, user) => {
     }
   }
 
-  // startY is basically margin-top
   const date = Date().split(" ");
-  // we use a date string to generate our filename.
   const dateStr = date[0] + date[1] + date[2] + date[3] + date[4];
-  // ticket title. and margin-top + margin-left
   doc.setFontSize(20);
 
   doc.setTextColor(23, 162, 184);

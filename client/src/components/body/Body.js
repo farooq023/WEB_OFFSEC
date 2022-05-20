@@ -7,22 +7,17 @@ import Register from "./auth/Register";
 import ActivationEmail from "./auth/ActivationEmail";
 import NotFound from "../utils/NotFound/NotFound";
 import NotAuthorized from "../utils/NotFound/NotAuthorized";
-// import PrivateRoute from "../utils/routing/PrivateRoute";
 
 import ForgotPass from "../body/auth/ForgotPassword";
 import ResetPass from "../body/auth/ResetPassword";
 
-// import Profile from "../body/profile/Profile";
-import EditUser from "../body/profile/EditUser";
-
 import Home from "../body/home/Home";
 
 import Scan from "../../pages/webAssessment/Scan";
-import Rescan from "../../pages/Rescan";
+import Rescan from "../../pages/webAssessment/Rescan";
 import Dns from "../../pages/WAF/Dns";
 import Ssl from "../../pages/WAF/Ssl";
 import Payloads from "../../pages/WAF/Payloads";
-// import Spoof from "../../pages/WAF/Spoof";
 import Inbound from "../../pages/webGateway/Inbound";
 import Outbound from "../../pages/webGateway/Outbound";
 
@@ -32,7 +27,6 @@ import InResult from "../../pages/webGateway/InResult";
 import OutList from "../../pages/webGateway/OutList";
 import OutResult from "../../pages/webGateway/OutResult";
 
-// import Completed from "./pages/Completed";
 import Agents from "../../pages/admin/Agents";
 import Getreport from "../../pages/Getreport";
 
@@ -80,13 +74,13 @@ function Body() {
           element={isLogged ? <NotFound /> : <ResetPass />}
           exact
         />
-        
+
         {/* <Route
           path="/user/reset"
           element={isLogged ? <NotFound /> : <ResetPass />}
           exact
         /> */}
-        
+
         <Route
           path="/user/activate/:activation_token"
           element={<ActivationEmail />}

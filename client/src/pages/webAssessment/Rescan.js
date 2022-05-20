@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Table, Button } from 'reactstrap';
 
-import { setAlert } from "../redux/actions/alert";
+import { setAlert } from "../../redux/actions/alert";
 
 
 const Rescan = ({ setAlert, auth: { user } }) => {

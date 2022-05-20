@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { Button, Table } from "reactstrap";
 import generatePDF from "../../pdfReporting/webscan/PdfReport.js";
 import { Bar } from "react-chartjs-2";
 
-const ScanResults = (props) => {
+const ScanResults = () => {
   const location = useLocation();
   const { email } = location.state;
   const { domain } = location.state;
@@ -28,11 +28,11 @@ const ScanResults = (props) => {
         if (res.length > 0) {
           setScanResults(res);
           for (let i = 0; i < res.length; i++) {
-            if (res[i].Severity == "low") {
+            if (res[i].Severity === "low") {
               setLow(low++);
-            } else if (res[i].Severity == "medium") {
+            } else if (res[i].Severity === "medium") {
               setMedium(medium++);
-            } else if (res[i].Severity == "high") {
+            } else if (res[i].Severity === "high") {
               setHigh(high++);
             } else {
               setCritical(critical++);
@@ -41,7 +41,7 @@ const ScanResults = (props) => {
         }
       });
     });
-  }, []);
+  }, [scanResults, low, medium, high, critical, domain, email]);
 
   return (
     <div
@@ -107,57 +107,6 @@ const ScanResults = (props) => {
             width: "32vw",
           }}
         >
-          {/* <h2>Visual Representation:</h2> */}
-          {/* {set ?
-          <Bar
-          data={{
-            labels: ['Critical', 'High', 'Medium', "Low"],
-            datasets: [
-              {
-                label: [''],
-                data: [critical, high, medium, low],
-                backgroundColor: ["red", "orange", "yellow", "green"],
-                borderColor: [
-                  'rgba(255, 99, 132, 1)',
-                  'rgba(54, 162, 235, 1)',
-                  'rgba(255, 206, 86, 1)',
-                  'rgba(255, 206, 86, 1)',
-                ],
-                borderWidth: 1,
-              },
-              // {
-              //   label: 'Quantity',
-              //   data: [47, 52, 67, 58, 9, 50],
-              //   backgroundColor: 'orange',
-              //   borderColor: 'red',
-              // },
-            ],
-          }}
-          height={1000}
-          width={800}
-          options={{
-            maintainAspectRatio: false,
-            scales: {
-              xAxes: [{
-                barPercentage: 0.2
-              }],
-              yAxes: [
-                {
-                  ticks: {
-                    beginAtZero: true,
-                  },
-                },
-              ],
-            },
-            legend: {
-              labels: {
-                fontSize: 25,
-              },
-            },
-          }} 
-        />
-          :'Loading...'} */}
-
           <Bar
             data={{
               labels: ["Critical", "High", "Medium", "Low"],
@@ -174,12 +123,6 @@ const ScanResults = (props) => {
                   ],
                   borderWidth: 1,
                 },
-                // {
-                //   label: 'Quantity',
-                //   data: [47, 52, 67, 58, 9, 50],
-                //   backgroundColor: 'orange',
-                //   borderColor: 'red',
-                // },
               ],
             }}
             height={1000}

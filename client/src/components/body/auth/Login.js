@@ -1,6 +1,5 @@
-
 import React, { useState } from "react";
-import { Link, Navigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import axios from "axios";
 import { setAlert } from "../../../redux/actions/alert";
 import { dispatchLogin } from "../../../redux/actions/authAction";
@@ -54,18 +53,16 @@ function Login({ setAlert, auth: { isLogged, isAdmin } }) {
       setUser({ ...user });
     }
   };
-  if (isLogged === true) {
-    console.log("here");
-    if (isAdmin !== true) {
-      console.log("oth");
-      return <Navigate to="/dashboard" />;
-    } else if (isAdmin === true) {
-      console.log("ad");
-      return <Navigate to="/admindashboard" />;
-    }
-  }
-  //   {err && showErrMsg(err)}
-  //       {success && showSuccessMsg(success)}
+  // if (isLogged === true) {
+  //   console.log("here");
+  //   if (isAdmin !== true) {
+  //     console.log("oth");
+  //     return <Navigate to="/dashboard" />;
+  //   } else if (isAdmin === true) {
+  //     console.log("ad");
+  //     return <Navigate to="/admindashboard" />;
+  //   }
+  // }
 
   return (
     <div

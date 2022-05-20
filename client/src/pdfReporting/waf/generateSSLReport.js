@@ -1,13 +1,5 @@
-/* eslint-disable no-useless-concat */
-// services/reportGenerator.js
-
 import jsPDF from "jspdf";
 import "jspdf-autotable";
-// Date Fns is used to format the dates we receive
-// from our API call
-// import { format } from "date-fns";
-
-// define a generateSSLReport function that accepts a tickets argument
 const generateSSLReport = (sslResults, user) => {
   // initialize jsPDF
   let supportedCipher = sslResults[0];
@@ -16,7 +8,14 @@ const generateSSLReport = (sslResults, user) => {
   const doc = new jsPDF();
 
   // define the columns we want and their titles
-  const tableColumn = ["Supported Ciphers ("+(supportedCipher[0] == '-' ? 0 : supportedCipher.length)+')', "Bypassing Ciphers ("+(bypassedCiphers[0] == '-' ? 0 : bypassedCiphers.length)+')'];
+  const tableColumn = [
+    "Supported Ciphers (" +
+      (supportedCipher[0] === "-" ? 0 : supportedCipher.length) +
+      ")",
+    "Bypassing Ciphers (" +
+      (bypassedCiphers[0] === "-" ? 0 : bypassedCiphers.length) +
+      ")",
+  ];
   // define an empty array of rows
   const tableRows = [];
 

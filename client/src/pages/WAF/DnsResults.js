@@ -5,7 +5,7 @@ import { Button, Table } from "reactstrap";
 import generateDNSReport from "../../pdfReporting/waf/generateDNSReport";
 import { Bar } from 'react-chartjs-2'
 
-const DnsResults = (props) => {
+const DnsResults = () => {
 
   const location = useLocation();
   const { email } = location.state;
@@ -65,7 +65,7 @@ const DnsResults = (props) => {
               datasets: [
                 {
                   label: ['Visual Representation:'],
-                  data: [found[0] == '-' ? 0 : found.length , matching[0] == '-' ? 0 : matching.length],
+                  data: [found[0] === '-' ? 0 : found.length , matching[0] === '-' ? 0 : matching.length],
                   backgroundColor: ["green", "red"],
                   borderColor: [
                     'rgba(255, 99, 132, 1)',
@@ -113,7 +113,7 @@ const DnsResults = (props) => {
           <Table style={{width:"39vw"}}>
             <thead>
               <tr>
-                <th scope="col">DNS History ({found[0] == '-' ? 0 : found.length})</th>
+                <th scope="col">DNS History ({found[0] === '-' ? 0 : found.length})</th>
               </tr>
             </thead>
             <tbody>
@@ -133,7 +133,7 @@ const DnsResults = (props) => {
           <Table style={{width:"39vw"}}>
             <thead>
               <tr>
-                <th scope="col">Matching Responses ({matching[0] == '-' ? 0 : matching.length})</th>
+                <th scope="col">Matching Responses ({matching[0] === '-' ? 0 : matching.length})</th>
               </tr>
             </thead>
 

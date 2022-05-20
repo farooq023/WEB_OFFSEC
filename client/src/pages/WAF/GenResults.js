@@ -4,7 +4,7 @@ import { Button, Table } from "reactstrap";
 import generatePayloadsReport from "../../pdfReporting/waf/generatePayloadsReport";
 import { Bar } from "react-chartjs-2";
 
-const GenResults = (props) => {
+const GenResults = () => {
   const location = useLocation();
   const { email } = location.state;
   const { domain } = location.state;
@@ -94,7 +94,6 @@ const GenResults = (props) => {
           </h4>
         </div>
 
-        {/* <Button className="btn btn-primary" style={{borderRadius:"25px", height:"9vh", width:"8vw"}} onClick={() => generatePDF(dnsResults, user)}>Get report</Button> */}
         <Button
           className="btn btn-primary"
           style={{ borderRadius: "25px", height: "7vh", width: "11vw" }}
@@ -120,9 +119,9 @@ const GenResults = (props) => {
                   label: ["Visual Representation:"],
                   data: [
                     xssReqs,
-                    xssVulns[0] == "-" ? 0 : xssVulns.length,
+                    xssVulns[0] === "-" ? 0 : xssVulns.length,
                     sqlReqs,
-                    sqlVulns[0] == "-" ? 0 : sqlVulns.length,
+                    sqlVulns[0] === "-" ? 0 : sqlVulns.length,
                   ],
                   backgroundColor: ["green", "red", "green", "red"],
                   borderColor: [
@@ -133,12 +132,6 @@ const GenResults = (props) => {
                   ],
                   borderWidth: 1,
                 },
-                // {
-                //   label: 'Quantity',
-                //   data: [47, 52, 67, 58, 9, 50],
-                //   backgroundColor: 'orange',
-                //   borderColor: 'red',
-                // },
               ],
             }}
             height={1000}
@@ -178,7 +171,7 @@ const GenResults = (props) => {
             <thead>
               <tr>
                 <th scope="col">
-                  Xss Vulns ({xssVulns[0] == "-" ? 0 : xssVulns.length}/
+                  Xss Vulns ({xssVulns[0] === "-" ? 0 : xssVulns.length}/
                   {xssReqs})
                 </th>
               </tr>
@@ -204,7 +197,7 @@ const GenResults = (props) => {
             <thead>
               <tr>
                 <th scope="col">
-                  Sql Vulns ({sqlVulns[0] == "-" ? 0 : sqlVulns.length}/
+                  Sql Vulns ({sqlVulns[0] === "-" ? 0 : sqlVulns.length}/
                   {sqlReqs})
                 </th>
               </tr>
