@@ -74,21 +74,21 @@ const AssessmentResults = () => {
               </li> */}
               <div style={{display:"flex", alignItems: "center", flexDirection: "column", marginLeft:"2vh", marginTop:"3vh"}}>
               <Button
-                href="/scanlist"
+                href="/dnslist"
                 color="primary"
                 // size="sm"
                 style={{ borderRadius: "25px", width:"12vw", marginTop:"1vh", height:"6vh", display:"flex", justifyContent: "center", alignItems: "center"}}>
                 DNS History
               </Button>
               <Button
-                href="/scanlist"
+                href="/ssllist"
                 color="primary"
                 size="sm"
                 style={{ borderRadius: "25px", width:"12vw", marginTop:"1vh", height:"6vh", display:"flex", justifyContent: "center", alignItems: "center" }}>
                 SSL Ciphers
               </Button>
               <Button
-                href="/scanlist"
+                href="/genlist"
                 color="primary"
                 // size="sm"
                 style={{ borderRadius: "25px", width:"12vw", marginTop:"1vh", height:"6vh", display:"flex", justifyContent: "center", alignItems: "center" }}>
@@ -116,7 +116,7 @@ const AssessmentResults = () => {
           }}
         >
           <img src={gate} height="120vh" width="100vw" alt="" />
-          <li class="dropdown" style={{backgroundColor: "#F0F2F5"}}>
+          <li class="dropdown" >
             <Button
               color="primary"
               size="sm"
@@ -124,28 +124,21 @@ const AssessmentResults = () => {
             >
               WG Assessments <IoIosArrowDropdownCircle />
             </Button>
-            <li class="dropdown-content">
+            <li class="dropdown-content" style={{backgroundColor: "#F0F2F5"}}>
             <div style={{display:"flex", alignItems: "center", flexDirection: "column", marginLeft:"2vh", marginTop:"3vh"}}>
               <Button
-                href="/scanlist"
+                href="/inlist"
                 color="primary"
                 // size="sm"
                 style={{ borderRadius: "25px", width:"12vw", marginTop:"1vh", height:"6vh", display:"flex", justifyContent: "center", alignItems: "center"}}>
-                DNS History
+                Inbound Traffic
               </Button>
               <Button
-                href="/scanlist"
-                color="primary"
-                size="sm"
-                style={{ borderRadius: "25px", width:"12vw", marginTop:"1vh", height:"6vh", display:"flex", justifyContent: "center", alignItems: "center" }}>
-                SSL Ciphers
-              </Button>
-              <Button
-                href="/scanlist"
+                href="/outlist"
                 color="primary"
                 // size="sm"
                 style={{ borderRadius: "25px", width:"12vw", marginTop:"1vh", height:"6vh", display:"flex", justifyContent: "center", alignItems: "center" }}>
-                Generated Payloads
+                Outbound Traffic
               </Button>
               </div>
               {/* <li>
