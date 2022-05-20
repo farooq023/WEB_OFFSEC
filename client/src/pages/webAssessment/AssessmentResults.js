@@ -68,19 +68,46 @@ const AssessmentResults = () => {
               WAF Assessments <IoIosArrowDropdownCircle />
             </Button>
 
-            <li class="dropdown-content">
-              <li>
+            <li class="dropdown-content" style={{backgroundColor: "#F0F2F5"}} >
+              {/* <li>
                 <a href="dnslist">DNS Assessments</a>
-              </li>
-              <li>
+              </li> */}
+              <div style={{display:"flex", alignItems: "center", flexDirection: "column", marginLeft:"2vh", marginTop:"3vh"}}>
+              <Button
+                href="/scanlist"
+                color="primary"
+                // size="sm"
+                style={{ borderRadius: "25px", width:"12vw", marginTop:"1vh", height:"6vh", display:"flex", justifyContent: "center", alignItems: "center"}}>
+                DNS History
+              </Button>
+              <Button
+                href="/scanlist"
+                color="primary"
+                size="sm"
+                style={{ borderRadius: "25px", width:"12vw", marginTop:"1vh", height:"6vh", display:"flex", justifyContent: "center", alignItems: "center" }}>
+                SSL Ciphers
+              </Button>
+              <Button
+                href="/scanlist"
+                color="primary"
+                // size="sm"
+                style={{ borderRadius: "25px", width:"12vw", marginTop:"1vh", height:"6vh", display:"flex", justifyContent: "center", alignItems: "center" }}>
+                Generated Payloads
+              </Button>
+              </div>
+
+              
+              {/* <li>
                 <a href="ssllist">SSL Assessments</a>
               </li>
               <li>
                 <a href="genlist">Generated Payloads</a>
-              </li>
+              </li> */}
+              
             </li>
           </li>
         </div>
+
         <div
           style={{
             display: "flex",
@@ -89,7 +116,7 @@ const AssessmentResults = () => {
           }}
         >
           <img src={gate} height="120vh" width="100vw" alt="" />
-          <li class="dropdown">
+          <li class="dropdown" style={{backgroundColor: "#F0F2F5"}}>
             <Button
               color="primary"
               size="sm"
@@ -98,12 +125,35 @@ const AssessmentResults = () => {
               WG Assessments <IoIosArrowDropdownCircle />
             </Button>
             <li class="dropdown-content">
-              <li>
+            <div style={{display:"flex", alignItems: "center", flexDirection: "column", marginLeft:"2vh", marginTop:"3vh"}}>
+              <Button
+                href="/scanlist"
+                color="primary"
+                // size="sm"
+                style={{ borderRadius: "25px", width:"12vw", marginTop:"1vh", height:"6vh", display:"flex", justifyContent: "center", alignItems: "center"}}>
+                DNS History
+              </Button>
+              <Button
+                href="/scanlist"
+                color="primary"
+                size="sm"
+                style={{ borderRadius: "25px", width:"12vw", marginTop:"1vh", height:"6vh", display:"flex", justifyContent: "center", alignItems: "center" }}>
+                SSL Ciphers
+              </Button>
+              <Button
+                href="/scanlist"
+                color="primary"
+                // size="sm"
+                style={{ borderRadius: "25px", width:"12vw", marginTop:"1vh", height:"6vh", display:"flex", justifyContent: "center", alignItems: "center" }}>
+                Generated Payloads
+              </Button>
+              </div>
+              {/* <li>
                 <a href="inlist">Inbound Traffic</a>
               </li>
               <li>
                 <a href="outlist">Outbound Traffic</a>
-              </li>
+              </li> */}
             </li>
           </li>
         </div>
