@@ -65,7 +65,7 @@ const SslResults = () => {
               datasets: [
                 {
                   label: ['Visual Representation:'],
-                  data: [supported[0] === '-' ? 0 : supported.length , bypassing[0] = '-' ? 0 : bypassing.length],
+                  data: [supported[0] == '-' ? 0 : supported.length , bypassing[0] == '-' ? 0 : bypassing.length],
                   backgroundColor: ["green", "red"],
                   borderColor: [
                     'rgba(255, 99, 132, 1)',
@@ -113,7 +113,7 @@ const SslResults = () => {
           <Table style={{width:"39vw"}}>
             <thead>
               <tr>
-                <th scope="col">Supported Ciphers ({supported[0] === '-' ? 0 : supported.length})</th>
+                <th scope="col">Supported Ciphers ({supported[0] == '-' ? 0 : supported.length})</th>
               </tr>
             </thead>
             <tbody>
@@ -133,7 +133,7 @@ const SslResults = () => {
           <Table style={{width:"39vw"}}>
             <thead>
               <tr>
-                <th scope="col">Bypassed Ciphers ({bypassing[0] === '-' ? 0 : bypassing.length})</th>
+                <th scope="col">Bypassed Ciphers ({bypassing[0] == '-' ? 0 : bypassing.length})</th>
               </tr>
             </thead>
 

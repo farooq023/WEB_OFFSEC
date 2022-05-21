@@ -35,7 +35,7 @@ router.post('/:email/:domain', async (req, res) => {
         // console.log("entered timeout1");
 
         if(r==1){
-          request('http://192.168.1.157:8000/dns/'+req.params.domain+"/"+mail, function (error, response2, body) {
+          request('http://192.168.8.101:8000/dns/'+req.params.domain+"/"+mail, function (error, response2, body) {
           try{
             console.log("kali response", response2.statusCode);
             if(response2.statusCode == 200){
@@ -61,7 +61,7 @@ router.post('/:email/:domain', async (req, res) => {
           res.send( {result:'dead'} );
         }
 
-      }, 3500 );
+      }, 4000 );
 
 
       // setTimeout(

@@ -19,7 +19,7 @@ router.post('/:email', async (req, res) => {
       let mail = req.params.email;
       let y=0;
 
-      request('http://192.168.1.157:8000/inbound/'+mail, function (error, response, body) {
+      request('http://192.168.8.101:8000/inbound/'+mail, function (error, response, body) {
         try{
             if(response.statusCode == 200){
                 // console.log("y set to 1.");
