@@ -28,11 +28,11 @@ const ScanResults = () => {
         if (res.length > 0) {
           setScanResults(res);
           for (let i = 0; i < res.length; i++) {
-            if (res[i].Severity === "low") {
+            if (res[i].Severity == "low") {
               setLow(low++);
-            } else if (res[i].Severity === "medium") {
+            } else if (res[i].Severity == "medium") {
               setMedium(medium++);
-            } else if (res[i].Severity === "high") {
+            } else if (res[i].Severity == "high") {
               setHigh(high++);
             } else {
               setCritical(critical++);
@@ -41,7 +41,7 @@ const ScanResults = () => {
         }
       });
     });
-  }, [scanResults, low, medium, high, critical, domain, email]);
+  }, []);
 
   return (
     <div
@@ -179,7 +179,7 @@ const ScanResults = () => {
                   <td>{obj.Vulnerability}</td>
                   <td>{obj.Severity}</td>
                   <td>{obj.URL}</td>
-                  <td>{obj.Mit === null ? "-" : obj.Mit}</td>
+                  <td>{obj.Mit == null ? "-" : obj.Mit}</td>
                 </tr>
               ))
             ) : (

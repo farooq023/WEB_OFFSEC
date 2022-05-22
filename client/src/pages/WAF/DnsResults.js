@@ -25,13 +25,13 @@ const DnsResults = () => {
     }).then(function (response) {
       response.json().then((res) => {
         if (res.length > 0) {
-          // console.log(res);
+          console.log("res");
           setFound(res[0].DnsIpRecords);
           setMatching(res[0].MatchingResponses);
         }
       });
     });
-  });
+  }, []);
 
   let dnsResults = [found, matching];
 

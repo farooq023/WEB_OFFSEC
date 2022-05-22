@@ -26,7 +26,7 @@ router.get('/:email',
 
 router.get('/:email/:domain',
   async (req, res) => {
-    console.log("fetching scan results api called");
+    // console.log("fetching scan results api called");
     scanResults.aggregate([{ $match:{ Email: req.params.email, Domain: req.params.domain } }]).
     exec((err,results)=>{
         if(!results){

@@ -16,7 +16,7 @@ const Agents = ({ setAlert, auth: { user } }) => {
       method: "GET",
     }).then(function (response) {
       response.json().then((res) => {
-        // console.log("res is",res);
+        console.log("res is");
         if (res.length > 0) {
           setAgentList(res);
         } else {
@@ -24,7 +24,7 @@ const Agents = ({ setAlert, auth: { user } }) => {
         }
       });
     });
-  }, [agentList]);
+  }, []);
 
   function remove(mail) {
     // console.log(mail);

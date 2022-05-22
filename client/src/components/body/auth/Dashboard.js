@@ -48,7 +48,7 @@ const Dashboard = ({ auth: { user } }) => {
         setGenList(res.length);
       });
     });
-  });
+  },[user.email] );
   return (
     <div style={{ height: "100vh", width: "100%", backgroundColor: "#F0F2F5" }}>
       <div style={{ display: "flex", alignItems: "center", flexDirection: "column" }}>

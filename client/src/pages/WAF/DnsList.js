@@ -30,7 +30,7 @@ const DnsList = ({ auth: { user } }) => {
         // }
       });
     });
-  });
+  }, [user.email]);
 
   return (
     <div style={{height:"100vh", width:"100%", backgroundColor:"#F0F2F5", display:"flex", flexDirection:"column", alignItems:"center"}}>

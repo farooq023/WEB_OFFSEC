@@ -18,6 +18,7 @@ const InList = ({ auth: { user } }) => {
       // }
     }).then(function (response) {
       response.json().then((res) => {
+        console.log("fetching")
         if (res.length > 0) {
             setInList(res);
         } else {
@@ -30,7 +31,7 @@ const InList = ({ auth: { user } }) => {
         // }
       });
     });
-  });
+  }, [user.email]);
 
   return (
     <div style={{height:"100vh", width:"100%", backgroundColor:"#F0F2F5", display:"flex", flexDirection:"column", alignItems:"center"}}>

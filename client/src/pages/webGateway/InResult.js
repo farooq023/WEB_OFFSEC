@@ -34,7 +34,7 @@ const InResult = (props) => {
         }
       });
     });
-  });
+  }, []);
 
   //   let inResults = [supported, bypassing];
 

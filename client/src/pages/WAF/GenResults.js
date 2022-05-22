@@ -34,7 +34,7 @@ const GenResults = () => {
         }
       });
     });
-  });
+  }, []);
 
   let PayloadsResults = [
     xssVulns,

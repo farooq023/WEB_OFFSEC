@@ -31,7 +31,7 @@ const SslResults = () => {
         }
       });
     });
-  });
+  }, []);
 
   let sslResults = [supported, bypassing];
 

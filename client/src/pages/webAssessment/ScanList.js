@@ -18,6 +18,7 @@ const ScanList = ({ auth: { user } }) => {
       // }
     }).then(function (response) {
       response.json().then((res) => {
+        // console.log("fetched");
         if (res.length > 0) {
           setScanList(res);
         } else {
@@ -30,7 +31,7 @@ const ScanList = ({ auth: { user } }) => {
         // }
       });
     });
-  });
+  }, [user.email]);
 
   return (
     <div style={{height:"100vh", width:"100%", backgroundColor:"#F0F2F5", display:"flex", flexDirection:"column", alignItems:"center"}}>

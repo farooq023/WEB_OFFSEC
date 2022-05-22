@@ -17,20 +17,19 @@ const OutList = ({ auth: { user } }) => {
       //     "Content-Type": "application/json"
       // }
     }).then(function (response) {
+      console.log("fetching0");
       response.json().then((res) => {
         if (res.length > 0) {
             setOutList(res);
+            console.log("fetching1");
+            return;
         } else {
             setOutList("0");
+            console.log("fetching2");
         }
-        // else {
-        //     var error = new Error(response.statusText)
-        //     error.response = response
-        //     throw error
-        // }
       });
     });
-  });
+  }, [user.email]);
 
   return (
     <div style={{height:"100vh", width:"100%", backgroundColor:"#F0F2F5", display:"flex", flexDirection:"column", alignItems:"center"}}>
