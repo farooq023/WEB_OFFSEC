@@ -3,11 +3,22 @@ const express = require('express');
 const router = express.Router();
 const request = require('request');
 const { check, validationResult } = require('express-validator');
+const fs = require('fs');
 
 
 router.post('/:email', async (req, res) => {
     
-    // console.log("api called");
+    // console.log("sendout api called");
+
+    var ip=''
+    var timer2=''
+
+    fs.readFile('routes/data.txt', (err, data) => { 
+      a=data.toString();      
+      b=a.split('\r');
+      ip=b[0];
+      timer2 = parseInt(b[2].substring(1));
+    });
 
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -19,10 +30,11 @@ router.post('/:email', async (req, res) => {
       let mail = req.params.email;
       let y=0;
 
-      request('http://192.168.8.101:8000/outbound/'+mail, function (error, response, body) {
+      setTimeout( ()=> {
+
+        request('http://'+ip+':8000/outbound/'+mail, function (error, response, body) {
         try{
             if(response.statusCode == 200){
-                // console.log("y set to 1.");
                 y=1;
             }
         }
@@ -36,9 +48,9 @@ router.post('/:email', async (req, res) => {
           else{
             res.send( {result:'errors'} );
           }
-        }, 1500);
+        }, timer2);
 
-
+      }, 500);
 
     //   request('http://'+req.params.domain, function (error, response, body) {
     //     try{

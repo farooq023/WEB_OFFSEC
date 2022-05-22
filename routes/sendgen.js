@@ -3,11 +3,26 @@ const express = require('express');
 const router = express.Router();
 const request = require('request');
 const { check, validationResult } = require('express-validator');
+const fs = require('fs');
 
 
 router.post('/:email/:domain', async (req, res) => {
     
     // console.log("api called");
+
+    var ip=''
+    var timer1=''
+    var timer2=''
+
+    fs.readFile('routes/data.txt', (err, data) => { 
+      a=data.toString();      
+      b=a.split('\r');
+      // console.log("splitted");
+      ip=b[0];
+      timer1 = parseInt(b[1].substring(1));
+      timer2 = parseInt(b[2].substring(1));
+      // console.log(parseInt(timer1)+"farooq");
+  });
 
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -20,7 +35,8 @@ router.post('/:email/:domain', async (req, res) => {
       let r=0;
       let y=0;
 
-      request('http://'+req.params.domain, function (error, response, body) {
+      setTimeout( () => {
+        request('http://'+req.params.domain, function (error, response, body) {
         try{
           console.log("Domain response", response.statusCode);
           if(response.statusCode == 200 || response.statusCode == 401 || response.statusCode == 403){
@@ -35,7 +51,7 @@ router.post('/:email/:domain', async (req, res) => {
         // console.log("entered timeout1");
 
         if(r==1){
-          request('http://192.168.8.101:8000/genpay/'+req.params.domain+"/"+mail, function (error, response2, body) {
+          request('http://'+ip+':8000/genpay/'+req.params.domain+"/"+mail, function (error, response2, body) {
           try{
             console.log("kali response", response2.statusCode);
             if(response2.statusCode == 200){
@@ -54,15 +70,15 @@ router.post('/:email/:domain', async (req, res) => {
             else{
               res.send( {result:'errors'} );
             }
-          }, 1500 );
+          }, timer2 );
           }
 
         else{
           res.send( {result:'dead'} );
         }
 
-      }, 4000 );
-
+        }, timer1 );
+      }, 500)
 
       // setTimeout(
       //   await request('http://192.168.1.157:8000/deepscan/'+req.params.domain+"/"+mail, function (error, response, body) {
