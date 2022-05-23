@@ -6,7 +6,7 @@ const NotAuthorized = () => {
       <h1 className="x-large text-primary">
         <i className="fas fa-exclamation-triangle" /> You are not Authorized
       </h1>
-      <p className="large">Sorry, this page is not accessibile</p>
+      <p className="large">Sorry, this page is not accessible.</p>
     </section>
   );
 };

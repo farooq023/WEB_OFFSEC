@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
@@ -8,7 +7,6 @@ import { setAlert } from "../../redux/actions/alert";
 // import "./getreport.css";
 
 const Agents = ({ setAlert, auth: { user } }) => {
-
   let [agentList, setAgentList] = useState([]);
 
   useEffect(() => {
@@ -24,7 +22,7 @@ const Agents = ({ setAlert, auth: { user } }) => {
         }
       });
     });
-  }, []);
+  }, [agentList]);
 
   function remove(mail) {
     // console.log(mail);
