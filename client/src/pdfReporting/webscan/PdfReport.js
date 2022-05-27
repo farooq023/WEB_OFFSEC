@@ -1,14 +1,13 @@
-/* eslint-disable no-useless-concat */
-// services/reportGenerator.js
-
 import jsPDF from "jspdf";
 import "jspdf-autotable";
+
 // Date Fns is used to format the dates we receive
 // from our API call
 // import { format } from "date-fns";
 
-// define a generatePDF function that accepts a tickets argument
-const generatePDF = (tickets, user) => {
+// define a PdfReport function that accepts a tickets argument
+const PdfReport = (tickets, user, image) => {
+  // const getreport = () => {
   // initialize jsPDF
 
   const doc = new jsPDF();
@@ -48,12 +47,14 @@ const generatePDF = (tickets, user) => {
   doc.setTextColor(0, 0, 0);
   doc.setFontSize(12);
   doc.text("Email: " + user[0], 14, 20);
-  doc.text("Domain: " + user[1], 100, 20);
-  doc.text("Date: " + user[2], 14, 32);
-  doc.text("Time: " + user[3], 100, 32);
-  doc.text("Duration: " + user[4], 14, 44);
+  doc.text("Domain: " + user[1], 14, 32);
+  doc.text("Date: " + user[2], 14, 44);
+  doc.text("Time: " + user[3], 14, 56);
+  doc.text("Duration: " + user[4], 14, 68);
+  doc.addImage(image, "JPEG", 100, 18, 70, 50);
+
   doc.autoTable(tableColumn, tableRows, {
-    startY: 50,
+    startY: 80,
     columnStyles: {
       0: {
         columnWidth: "auto",
@@ -69,9 +70,61 @@ const generatePDF = (tickets, user) => {
       },
     },
   });
-
   // we define the name of our PDF file.
   doc.save(`report_${dateStr}.pdf`);
+  // };
+  // return (
+  //   <div id="custom-chart">
+  //     <Bar
+  //       data={{
+  //         labels: ["Critical", "High", "Medium", "Low"],
+  //         datasets: [
+  //           {
+  //             label: ["Visual Representation:"],
+  //             data: [
+  //               chartValues[0],
+  //               chartValues[1],
+  //               chartValues[2],
+  //               chartValues[3],
+  //             ],
+  //             backgroundColor: ["red", "orange", "yellow", "green"],
+  //             borderColor: [
+  //               "rgba(255, 99, 132, 1)",
+  //               "rgba(54, 162, 235, 1)",
+  //               "rgba(255, 206, 86, 1)",
+  //               "rgba(255, 206, 86, 1)",
+  //             ],
+  //             borderWidth: 1,
+  //           },
+  //         ],
+  //       }}
+  //       height={1000}
+  //       width={800}
+  //       options={{
+  //         maintainAspectRatio: false,
+  //         scales: {
+  //           xAxes: [
+  //             {
+  //               barPercentage: 0.2,
+  //             },
+  //           ],
+  //           yAxes: [
+  //             {
+  //               ticks: {
+  //                 beginAtZero: true,
+  //               },
+  //             },
+  //           ],
+  //         },
+  //         legend: {
+  //           labels: {
+  //             fontSize: 25,
+  //           },
+  //         },
+  //       }}
+  //     />
+  //   </div>
+  // );
 };
 
-export default generatePDF;
+export default PdfReport;

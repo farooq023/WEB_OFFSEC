@@ -3,7 +3,7 @@ import { useLocation } from "react-router-dom";
 import { Button, Table } from "reactstrap";
 import generatePDF from "../../pdfReporting/webscan/PdfReport.js";
 import { Bar } from "react-chartjs-2";
-
+import html2canvas from "html2canvas";
 const ScanResults = () => {
   const location = useLocation();
   const { email } = location.state;
@@ -17,10 +17,11 @@ const ScanResults = () => {
   let [medium, setMedium] = useState(0);
   let [high, setHigh] = useState(0);
   let [critical, setCritical] = useState(0);
+  let [image, setImage] = useState(null);
 
   let user = [email, domain, date, time, dur];
 
-  useEffect(() => {
+  useEffect(async () => {
     fetch("/api/fetchscan/" + email + "/" + domain, {
       method: "GET",
     }).then(function (response) {
@@ -41,8 +42,15 @@ const ScanResults = () => {
         }
       });
     });
-  }, []);
+    setInterval(() => {
+      let input = window.document.getElementsByClassName("custom-chart")[0];
 
+      html2canvas(input).then((canvas) => {
+        const img = canvas.toDataURL("image/png", 1.0);
+        setImage(img);
+      });
+    }, 500);
+  }, []);
   return (
     <div
       style={{
@@ -94,11 +102,14 @@ const ScanResults = () => {
         <Button
           className="btn btn-primary"
           style={{ borderRadius: "25px", height: "7vh", width: "11vw" }}
-          onClick={() => generatePDF(scanResults, user)}
+          onClick={() => {
+            generatePDF(scanResults, user, image);
+          }}
         >
           Get report
         </Button>
         <div
+          className="custom-chart"
           style={{
             border: "5px solid #17a2b8",
             borderRadius: "25px",
@@ -128,6 +139,9 @@ const ScanResults = () => {
             height={1000}
             width={800}
             options={{
+              options: {
+                animation: false,
+              },
               maintainAspectRatio: false,
               scales: {
                 xAxes: [

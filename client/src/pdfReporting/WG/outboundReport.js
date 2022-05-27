@@ -8,7 +8,7 @@ import "jspdf-autotable";
 // import { format } from "date-fns";
 
 // define a generatePDF function that accepts a tickets argument
-const inboundReport = (tickets, user) => {
+const inboundReport = (tickets, user, image) => {
   // initialize jsPDF
 
   const doc = new jsPDF();
@@ -26,26 +26,28 @@ const inboundReport = (tickets, user) => {
   doc.setTextColor(0, 0, 0);
   doc.setFontSize(12);
   doc.text("Email: " + user[0], 14, 20);
-  doc.text("Date: " + user[1], 100, 20);
-  doc.text("Time: " + user[2], 14, 32);
-  doc.text("Duration: " + user[3], 100, 32);
+  doc.text("Date: " + user[1], 14, 32);
+  doc.text("Time: " + user[2], 14, 44);
+  doc.text("Duration: " + user[3], 14, 56);
+  doc.addImage(image, "JPEG", 100, 18, 70, 50);
+
   doc.setFontSize(18);
   doc.setTextColor(23, 162, 184);
-  doc.text("Assessment Results", 14, 50);
+  doc.text("Assessment Results", 14, 82);
   doc.setTextColor(0, 0, 0);
   doc.setDrawColor(23, 162, 184);
   doc.setLineWidth(0.5);
-  doc.line(15, 41, 190, 41);
+  doc.line(15, 73, 190, 73);
   doc.setFontSize(12);
-  doc.text("Total Malicious Requests Made : " + tickets[0], 14, 58);
-  doc.text("Successful Requests : " + tickets[1] + " %", 14, 66);
-  doc.text("Gateway Score : " + tickets[2], 14, 74);
+  doc.text("Total Malicious Requests Made : " + tickets[0], 14,92);
+  doc.text("Successful Requests : " + tickets[1] + " %", 14, 100);
+  doc.text("Gateway Score : " + tickets[2], 14, 108);
   if (tickets[3] === "FAIL") {
     doc.setTextColor(184, 28, 28);
-    doc.text("Gateway Status : " + tickets[3], 14, 82);
+    doc.text("Gateway Status : " + tickets[3], 14, 116);
   } else {
     doc.setTextColor(17, 184, 23);
-    doc.text("Gateway Status : " + tickets[3], 14, 82);
+    doc.text("Gateway Status : " + tickets[3], 14, 116);
   }
   // we define the name of our PDF file.
   doc.save(`report_${dateStr}.pdf`);

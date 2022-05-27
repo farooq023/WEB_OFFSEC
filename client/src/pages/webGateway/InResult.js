@@ -3,6 +3,7 @@ import { useLocation } from "react-router-dom";
 import { Button, Table } from "reactstrap";
 import inboundReport from "../../pdfReporting/WG/inboundReport";
 import { Bar } from "react-chartjs-2";
+import html2canvas from "html2canvas";
 
 const InResult = (props) => {
   const location = useLocation();
@@ -16,6 +17,7 @@ const InResult = (props) => {
   let [test3, setTest3] = useState("");
   let [gateScore, setgateScore] = useState("");
   let [gateStatus, setgateStatus] = useState("");
+  let [image, setImage] = useState(null);
 
   let user = [email, date, time, dur];
   let inboundResults = [test1, test2, test3, gateScore, gateStatus];
@@ -34,6 +36,14 @@ const InResult = (props) => {
         }
       });
     });
+    setInterval(() => {
+      let input = window.document.getElementsByClassName("custom-chart")[0];
+
+      html2canvas(input).then((canvas) => {
+        const img = canvas.toDataURL("image/png", 1.0);
+        setImage(img);
+      });
+    }, 500);
   }, []);
 
   //   let inResults = [supported, bypassing];
@@ -92,13 +102,15 @@ const InResult = (props) => {
           className="btn btn-primary"
           style={{ borderRadius: "25px", height: "7vh", width: "11vw" }}
           onClick={() => {
-            inboundReport(inboundResults, user);
+            inboundReport(inboundResults, user, image);
           }}
         >
           Get report
         </Button>
 
         <div
+                    className="custom-chart"
+
           style={{
             border: "5px solid #17a2b8",
             borderRadius: "25px",

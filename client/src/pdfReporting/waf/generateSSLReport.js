@@ -1,6 +1,6 @@
 import jsPDF from "jspdf";
 import "jspdf-autotable";
-const generateSSLReport = (sslResults, user) => {
+const generateSSLReport = (sslResults, user, image) => {
   // initialize jsPDF
   let supportedCipher = sslResults[0];
   let bypassedCiphers = sslResults[1];
@@ -43,12 +43,13 @@ const generateSSLReport = (sslResults, user) => {
   doc.setTextColor(0, 0, 0);
   doc.setFontSize(12);
   doc.text("Email: " + user[0], 14, 20);
-  doc.text("Domain: " + user[1], 100, 20);
-  doc.text("Date: " + user[2], 14, 32);
-  doc.text("Time: " + user[3], 100, 32);
-  doc.text("Duration: " + user[4], 14, 44);
+  doc.text("Domain: " + user[1], 14, 32);
+  doc.text("Date: " + user[2], 14, 44);
+  doc.text("Time: " + user[3], 14, 56);
+  doc.text("Duration: " + user[4], 14, 68);
+  doc.addImage(image, "JPEG", 100, 18, 70, 50);
 
-  doc.autoTable(tableColumn, tableRows, { startY: 50 });
+  doc.autoTable(tableColumn, tableRows, { startY: 80 });
   // we define the name of our PDF file.
   doc.save(`report_${dateStr}.pdf`);
 };

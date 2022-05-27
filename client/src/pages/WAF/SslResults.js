@@ -1,12 +1,11 @@
-
 import React, { useEffect, useState } from "react";
-import { useLocation } from 'react-router-dom'
+import { useLocation } from "react-router-dom";
 import { Button, Table } from "reactstrap";
 import generateSSLReport from "../../pdfReporting/waf/generateSSLReport";
-import { Bar } from 'react-chartjs-2'
+import { Bar } from "react-chartjs-2";
+import html2canvas from "html2canvas";
 
 const SslResults = () => {
-
   const location = useLocation();
   const { email } = location.state;
   const { domain } = location.state;
@@ -16,11 +15,12 @@ const SslResults = () => {
 
   let [supported, setSupported] = useState([]);
   let [bypassing, setBypassing] = useState([]);
+  let [image, setImage] = useState(null);
 
   let user = [email, domain, date, time, dur];
 
   useEffect(() => {
-    fetch("/api/fetchssl/"+email+'/'+domain, {
+    fetch("/api/fetchssl/" + email + "/" + domain, {
       method: "GET",
     }).then(function (response) {
       response.json().then((res) => {
@@ -31,16 +31,52 @@ const SslResults = () => {
         }
       });
     });
+    setInterval(() => {
+      let input = window.document.getElementsByClassName("custom-chart")[0];
+
+      html2canvas(input).then((canvas) => {
+        const img = canvas.toDataURL("image/png", 1.0);
+        setImage(img);
+      });
+    }, 500);
   }, []);
 
   let sslResults = [supported, bypassing];
 
   return (
-    <div style={{height:"100vh", width:"100%", backgroundColor:"#F0F2F5", display:"flex", flexDirection:"column", alignItems:"center"}}>
-      <h1 style={{marginTop:"6%", color:"#17a2b8"}}><b>Abused SSL Cipher of {domain}</b></h1>
+    <div
+      style={{
+        height: "100vh",
+        width: "100%",
+        backgroundColor: "#F0F2F5",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+      }}
+    >
+      <h1 style={{ marginTop: "6%", color: "#17a2b8" }}>
+        <b>Abused SSL Cipher of {domain}</b>
+      </h1>
 
-      <div style={{ width:"80vw", marginTop:"2%", display:"flex", justifyContent:"space-around"}}>
-        <div style={{display: "flex", flexDirection: "column", border:"5px solid #17a2b8", borderRadius:"25px", padding:"1.5%", height:"32vh", width:"25vw"}}>
+      <div
+        style={{
+          width: "80vw",
+          marginTop: "2%",
+          display: "flex",
+          justifyContent: "space-around",
+        }}
+      >
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            border: "5px solid #17a2b8",
+            borderRadius: "25px",
+            padding: "1.5%",
+            height: "32vh",
+            width: "25vw",
+          }}
+        >
           <h2>Assessment Details: </h2>
           <h4 style={{ marginTop: "6%" }}>
             <u>Assessment Type</u>: Abuse SSL Cipher (WAF)
@@ -56,20 +92,38 @@ const SslResults = () => {
           </h4>
         </div>
 
-        <Button className="btn btn-primary" style={{borderRadius:"25px", height:"7vh", width:"11vw"}} onClick={() => generateSSLReport(sslResults, user)}>Get report</Button>
-        
-        <div style={{border:"5px solid #17a2b8", borderRadius:"25px", padding:"1.5%", height:"41vh", width:"32vw"}}>
+        <Button
+          className="btn btn-primary"
+          style={{ borderRadius: "25px", height: "7vh", width: "11vw" }}
+          onClick={() => generateSSLReport(sslResults, user, image)}
+        >
+          Get report
+        </Button>
+
+        <div
+          className="custom-chart"
+          style={{
+            border: "5px solid #17a2b8",
+            borderRadius: "25px",
+            padding: "1.5%",
+            height: "41vh",
+            width: "32vw",
+          }}
+        >
           <Bar
             data={{
-              labels: ['Supported Ciphers', 'Bypassing Ciphers'],
+              labels: ["Supported Ciphers", "Bypassing Ciphers"],
               datasets: [
                 {
-                  label: ['Visual Representation:'],
-                  data: [supported[0] == '-' ? 0 : supported.length , bypassing[0] == '-' ? 0 : bypassing.length],
+                  label: ["Visual Representation:"],
+                  data: [
+                    supported[0] == "-" ? 0 : supported.length,
+                    bypassing[0] == "-" ? 0 : bypassing.length,
+                  ],
                   backgroundColor: ["green", "red"],
                   borderColor: [
-                    'rgba(255, 99, 132, 1)',
-                    'rgba(54, 162, 235, 1)'
+                    "rgba(255, 99, 132, 1)",
+                    "rgba(54, 162, 235, 1)",
                   ],
                   borderWidth: 1,
                 },
@@ -86,9 +140,11 @@ const SslResults = () => {
             options={{
               maintainAspectRatio: false,
               scales: {
-                xAxes: [{
-                  barPercentage: 0.2
-                }],
+                xAxes: [
+                  {
+                    barPercentage: 0.2,
+                  },
+                ],
                 yAxes: [
                   {
                     ticks: {
@@ -102,18 +158,23 @@ const SslResults = () => {
                   fontSize: 25,
                 },
               },
-            }} 
+            }}
           />
-
         </div>
       </div>
-      
-      <div style={{display:"flex", flexDirection:"row", marginTop:"1%"}} >
-        <div className="scrollbar scrollbar-primary  mt-5 mx-auto" style={{ height:"35vh", width:"40vw", border:"5px solid #17a2b8" }}>
-          <Table style={{width:"39vw"}}>
+
+      <div style={{ display: "flex", flexDirection: "row", marginTop: "1%" }}>
+        <div
+          className="scrollbar scrollbar-primary  mt-5 mx-auto"
+          style={{ height: "35vh", width: "40vw", border: "5px solid #17a2b8" }}
+        >
+          <Table style={{ width: "39vw" }}>
             <thead>
               <tr>
-                <th scope="col">Supported Ciphers ({supported[0] == '-' ? 0 : supported.length})</th>
+                <th scope="col">
+                  Supported Ciphers (
+                  {supported[0] == "-" ? 0 : supported.length})
+                </th>
               </tr>
             </thead>
             <tbody>
@@ -129,11 +190,17 @@ const SslResults = () => {
             </tbody>
           </Table>
         </div>
-        <div className="scrollbar scrollbar-primary  mt-5 mx-auto" style={{ height:"35vh", width:"40vw", border:"5px solid #17a2b8" }}>
-          <Table style={{width:"39vw"}}>
+        <div
+          className="scrollbar scrollbar-primary  mt-5 mx-auto"
+          style={{ height: "35vh", width: "40vw", border: "5px solid #17a2b8" }}
+        >
+          <Table style={{ width: "39vw" }}>
             <thead>
               <tr>
-                <th scope="col">Bypassed Ciphers ({bypassing[0] == '-' ? 0 : bypassing.length})</th>
+                <th scope="col">
+                  Bypassed Ciphers ({bypassing[0] == "-" ? 0 : bypassing.length}
+                  )
+                </th>
               </tr>
             </thead>
 
@@ -151,7 +218,6 @@ const SslResults = () => {
           </Table>
         </div>
       </div>
-      
     </div>
   );
 };

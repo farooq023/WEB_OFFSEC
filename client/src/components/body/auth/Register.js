@@ -132,7 +132,7 @@ function Register({ setAlert, isLogged }) {
         style={{
           marginTop: "12%",
           marginLeft: "6%",
-          height: "60%",
+          height: "65%",
           width: "25%",
           border: "2.5px solid var(--primary-color)",
           borderRadius: "5%",

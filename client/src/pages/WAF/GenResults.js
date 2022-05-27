@@ -3,6 +3,7 @@ import { useLocation } from "react-router-dom";
 import { Button, Table } from "reactstrap";
 import generatePayloadsReport from "../../pdfReporting/waf/generatePayloadsReport";
 import { Bar } from "react-chartjs-2";
+import html2canvas from "html2canvas";
 
 const GenResults = () => {
   const location = useLocation();
@@ -17,6 +18,7 @@ const GenResults = () => {
 
   let [sqlVulns, setSqlVulns] = useState([]);
   let [sqlReqs, setSqlReqs] = useState(0);
+  let [image, setImage] = useState(null);
 
   let user = [email, domain, date, time, dur];
 
@@ -34,6 +36,14 @@ const GenResults = () => {
         }
       });
     });
+    setInterval(() => {
+      let input = window.document.getElementsByClassName("custom-chart")[0];
+
+      html2canvas(input).then((canvas) => {
+        const img = canvas.toDataURL("image/png", 1.0);
+        setImage(img);
+      });
+    }, 500);
   }, []);
 
   let PayloadsResults = [
@@ -97,12 +107,13 @@ const GenResults = () => {
         <Button
           className="btn btn-primary"
           style={{ borderRadius: "25px", height: "7vh", width: "11vw" }}
-          onClick={() => generatePayloadsReport(PayloadsResults, user)}
+          onClick={() => generatePayloadsReport(PayloadsResults, user, image)}
         >
           Get report
         </Button>
 
         <div
+          className="custom-chart"
           style={{
             border: "5px solid #17a2b8",
             borderRadius: "25px",

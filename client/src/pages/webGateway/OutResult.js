@@ -5,6 +5,7 @@ import { Button, Table } from "reactstrap";
 import outboundReport from "../../pdfReporting/WG/outboundReport";
 
 import { Bar } from "react-chartjs-2";
+import html2canvas from "html2canvas";
 
 const OutResult = (props) => {
   const location = useLocation();
@@ -16,6 +17,7 @@ const OutResult = (props) => {
   let [trqs, setTrqs] = useState("");
   let [okss, setOkss] = useState("");
   let [gateStatus, setGateStatus] = useState("");
+  let [image, setImage] = useState(null);
 
   let user = [email, date, time, dur];
   let outboundResults = [
@@ -38,6 +40,14 @@ const OutResult = (props) => {
         // }
       });
     });
+    setInterval(() => {
+      let input = window.document.getElementsByClassName("custom-chart")[0];
+
+      html2canvas(input).then((canvas) => {
+        const img = canvas.toDataURL("image/png", 1.0);
+        setImage(img);
+      });
+    }, 500);
   }, []);
 
   //   let inResults = [supported, bypassing];
@@ -96,13 +106,14 @@ const OutResult = (props) => {
           className="btn btn-primary"
           style={{ borderRadius: "25px", height: "7vh", width: "11vw" }}
           onClick={() => {
-            outboundReport(outboundResults, user);
+            outboundReport(outboundResults, user, image);
           }}
         >
           Get report
         </Button>
 
         <div
+          className="custom-chart"
           style={{
             border: "5px solid #17a2b8",
             borderRadius: "25px",

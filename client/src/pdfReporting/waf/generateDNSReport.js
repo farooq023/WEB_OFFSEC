@@ -1,6 +1,6 @@
 import jsPDF from "jspdf";
 import "jspdf-autotable";
-const generateDNSReport = (dnsResults, user) => {
+const generateDNSReport = (dnsResults, user, image) => {
   // initialize jsPDF
   let ips = dnsResults[0];
   let matchingips = dnsResults[1];
@@ -37,15 +37,16 @@ const generateDNSReport = (dnsResults, user) => {
   doc.setFontSize(20);
 
   doc.setTextColor(23, 162, 184);
-  doc.text("DNS Results Report.", 77, 12);
+  doc.text("DNS Results Report.", 80, 12);
   doc.setTextColor(0, 0, 0);
   doc.setFontSize(12);
   doc.text("Email: " + user[0], 14, 20);
-  doc.text("Domain: " + user[1], 100, 20);
-  doc.text("Date: " + user[2], 14, 32);
-  doc.text("Time: " + user[3], 100, 32);
-  doc.text("Duration: " + user[4], 14, 44);
-  doc.autoTable(tableColumn, tableRows, { startY: 50 });
+  doc.text("Domain: " + user[1], 14, 32);
+  doc.text("Date: " + user[2], 14, 44);
+  doc.text("Time: " + user[3], 14, 56);
+  doc.text("Duration: " + user[4], 14, 68);
+  doc.addImage(image, "JPEG", 100, 18, 70, 50);
+  doc.autoTable(tableColumn, tableRows, { startY: 80 });
 
   // we define the name of our PDF file.
   doc.save(`report_${dateStr}.pdf`);
