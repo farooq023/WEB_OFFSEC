@@ -71,7 +71,7 @@ const Dashboard = ({ auth: { user } }) => {
         <div
           style={{
             height: "60vh",
-            width: "40vw",
+            width: "45vw",
             borderRadius: "25px",
             border: "5px solid #17a2b8 ",
           }}
