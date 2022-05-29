@@ -40,11 +40,12 @@ const ScanList = ({ auth: { user } }) => {
       </h1>
 
       <div style={{ display: "flex", justifyContent: "center", marginTop:"5%", border:"5px solid #17a2b8", borderRadius:"25px", padding:"1.5%" }}>
-        <div className="scrollbar scrollbar-primary  mt-5 mx-auto" style={{height:"40vh", width: "30vw"}}>
-          <Table style={{width:"29vw"}}>
+        <div className="scrollbar scrollbar-primary  mt-5 mx-auto" style={{height:"40vh", width: "40vw"}}>
+          <Table style={{width:"39vw"}}>
             <thead>
               <tr>
                 <th><u>Domain</u></th>
+                <th><u>Date</u></th>
                 <th><u>Actions</u></th>
               </tr>
             </thead>
@@ -53,6 +54,7 @@ const ScanList = ({ auth: { user } }) => {
                 scanList.map((obj) => (
                   <tr>
                     <td>{obj.Domain}</td>
+                    <td>{obj.Date}</td>
                     <td>
                       <Link to="/scanresults" state={{
                         email: user.email,

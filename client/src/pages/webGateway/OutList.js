@@ -34,7 +34,7 @@ const OutList = ({ auth: { user } }) => {
   return (
     <div style={{height:"100vh", width:"100%", backgroundColor:"#F0F2F5", display:"flex", flexDirection:"column", alignItems:"center"}}>
       <h1 style={{ marginTop:"7%", color:"#17a2b8" }}>
-        List of Assessed Inbound Traffic
+        List of Assessed Outbound Traffic
       </h1>
 
       <div style={{ display: "flex", justifyContent: "center", marginTop:"5%", border:"5px solid #17a2b8", borderRadius:"25px", padding:"1.5%" }}>

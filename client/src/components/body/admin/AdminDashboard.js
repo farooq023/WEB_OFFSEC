@@ -88,7 +88,7 @@ const AdminDashboard = ({ auth: { user } }) => {
               marginTop: "2%",
             }}
           >
-            <h1 style={{ color: "#17a2b8" }}>Menu</h1>
+            <h1 style={{ color: "#17a2b8" }}>Admin Panel</h1>
           </div>
           <div
             style={{
@@ -110,11 +110,11 @@ const AdminDashboard = ({ auth: { user } }) => {
                 color="primary"
                 style={{ borderRadius: "25px", marginTop: "3vh" }}
               >
-                Completed Assessments
+                Assessments Results
               </Button>
             </Link>
 
-            <Link
+            {/* <Link
               to="/getreport"
               style={{
                 display: "flex",
@@ -129,7 +129,7 @@ const AdminDashboard = ({ auth: { user } }) => {
               >
                 Get Assessment Report
               </Button>
-            </Link>
+            </Link> */}
 
             <Link
               to="/agents"

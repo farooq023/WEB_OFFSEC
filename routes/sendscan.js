@@ -49,7 +49,7 @@ router.post('/:email/:domain', async (req, res) => {
         // console.log("entered timeout1");
 
         if(r==1){
-          request('http://'+ip+':8000/deepscan/'+req.params.domain+"/"+mail, function (error, response2, body) {
+          request('http://'+ip+':8000/deepscan0/'+req.params.domain+"/"+mail, function (error, response2, body) {
           try{
             console.log("kali response", response2.statusCode);
             if(response2.statusCode == 200){
